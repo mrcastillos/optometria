@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptoMetric Pro - Dashboard de Adaptación Avanzada</title>
+    <!-- Tailwind CSS para el diseño responsivo -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Lucide Icons para la interfaz elegante -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #e2e8f0;
+        }
+
+        .gold-text {
+            color: #d4af37;
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border {
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .silver-text {
+            color: #c0c0c0;
+            background: linear-gradient(135deg, #ffffff 0%, #c0c0c0 50%, #707070 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Estilos del transportador y las cruces ópticas */
+        .reticle-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(214, 175, 55, 0.15);
+        }
+
+        .protractor-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.12;
+            pointer-events: none;
+            transform: rotate(0deg);
+        }
+
+        .optical-axis {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 220px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            transform-origin: center center;
+            transform: translate(-50%, -50%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .optical-axis::before {
+            content: attr(data-power);
+            position: absolute;
+            right: -10px;
+            top: -25px;
+            color: #d4af37;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .optical-axis.secondary {
+            background: linear-gradient(90deg, transparent, #c0c0c0, transparent);
+        }
+
+        .optical-axis.secondary::before {
+            color: #c0c0c0;
+            right: initial;
+            left: -10px;
+        }
+
+        .axis-label {
+            position: absolute;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- HEADER -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-8 pb-6 border-b border-gray-800 gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-3 bg-gradient-to-br from-amber-500/20 to-yellow-600/10 rounded-xl border border-amber-500/30">
+                    <i data-lucide="eye" class="w-8 h-8 text-amber-400"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold tracking-wide gold-text">OptoMetric Pro</h1>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest flex items-center gap-1">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-500"></i> Gabinete del Lic. en Optometría
+                    </p>
+                </div>
+            </div>
+            <div class="text-right glass-card py-2 px-4 rounded-lg border border-gray-800">
+                <span class="text-xs text-gray-500 block">Módulo de Contactología Avanzada</span>
+                <span class="text-sm font-medium text-amber-400">CooperVision Portfolio 2026</span>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- PANEL DE ENTRADA DE DATOS (4 columnas) -->
+            <section class="lg:col-span-4 space-y-6">
+                <div class="glass-card p-6 rounded-2xl border-t-2 border-amber-500/40 shadow-xl">
+                    <h2 class="text-lg font-semibold mb-4 flex items-center gap-2 text-amber-400">
+                        <i data-lucide="file-input" class="w-5 h-5"></i> Datos Clínicos Básicos
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <!-- Parámetros Generales -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs text-gray-400 block mb-1">Dist. Vértice (Gafas)</label>
+                                <div class="relative">
+                                    <input type="number" id="dv" value="12" step="1" class="w-full bg-gray-950 border border-gray-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-amber-500 text-amber-200">
+                                    <span class="absolute right-3 top-2 text-xs text-gray-500">mm</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-xs text-gray-400 block mb-1">DHIV (Córnea)</label>
+                                <div class="relative">
+                                    <input type="number" id="dhiv" value="11.8" step="0.1" class="w-full bg-gray-950 border border-gray-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-amber-500 text-amber-200">
+                                    <span class="absolute right-3 top-2 text-xs text-gray-500">mm</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="border-gray-800 my-2">
+
+                        <!-- OJO DERECHO -->
+                        <div class="p-3 bg-gray-900/40 rounded-xl border border-gray-800/60">
+                            <span class="text-xs font-bold text-amber-500/80 tracking-wider block mb-2">OJO DERECHO (OD)</span>
+                            <div class="grid grid-cols-3 gap-2 mb-3">
+                                <div>
+                                    <label class="text-[10px] text-gray-400 block mb-0.5">Esfera</label>
+                                    <input type="number" id="od_esf" value="0.00" step="0.25" class="w-full bg-gray-950 border border-gray-800 rounded-md py-1.5 px-2 text-xs text-center focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] text-gray-400 block mb-0.5">Cilindro</label>
+                                    <input type="number" id="od_cil" value="-0.75" step="0.25" class="w-full bg-gray-950 border border-gray-800 rounded-md py-1.5 px-2 text-xs text-center focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] text-gray-400 block mb-0.5">Eje (°)</label>
+                                    <input type="number" id="od_eje" value="151" min="0" max="180" class="w-full bg-gray-950 border border-gray-800 rounded-md py-1.5 px-2 text-xs text-center focus:outline-none focus:border-amber-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="text-[10px] text-gray-400 block mb-0.5">K Plana (H)</label>
+                                    <input type="number" id="od_k1" value="43.00" step="0.25" class="w-full bg-gray-950 border border-gray-800 rounded-md py-1.5 px-2 text-xs text-center focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] text-gray-400 block mb-0.5">K Curva (V)</label>
+                                    <input type="number" id="od_k2" value="43.75" step="0.25" class="w-full bg-gray-950 border border-gray-800 rounded-md py-1.5 px-2 text-xs text-center focus:outline-none focus:border-amber-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- OJO IZQUIERDO -->
+                        <div class="p-3 bg-gray-900/40 rounded-xl border border-gray-800/60">
+                            <span class="text-xs font-bold class-card silver-text tracking-wider block mb-2">OJO IZQUIERDO (OS)</span>
+                            <div class="grid grid-cols-3 gap-2 mb-3">
+                                <div>
+                                    <label class="text-[10px] text-gray-400 block mb-0.5">Esfera</label>
+                                    <input type="number" id="os_esf" value="0.00" step="0.25" class="w-full bg-gray-950 border border-gray-800 rounded-md py-1.5 px-2 text-xs text-center focus:outline-none focus:border-gray-500">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] text-gray-400 block mb-0.5">Cilindro</label>
+                                    <input type="number" id="os_cil" value="-1.00" step="0.25" class="w-full bg-gray-950 border border-gray-800 rounded-md py-1.5 px-2 text-xs text-center focus:outline-none focus:border-gray-500">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] text-gray-400 block mb-0.5">Eje (°)</label>
+                                    <input type="number" id="os_eje" value="14" min="0" max="180" class="w-full bg-gray-950 border border-gray-800 rounded-md py-1.5 px-2 text-xs text-center focus:outline-none focus:border-gray-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="text-[10px] text-gray-400 block mb-0.5">K Plana (H)</label>
+                                    <input type="number" id="os_k1" value="42.50" step="0.25" class="w-full bg-gray-950 border border-gray-800 rounded-md py-1.5 px-2 text-xs text-center focus:outline-none focus:border-gray-500">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] text-gray-400 block mb-0.5">K Curva (V)</label>
+                                    <input type="number" id="os_k2" value="43.50" step="0.25" class="w-full bg-gray-950 border border-gray-800 rounded-md py-1.5 px-2 text-xs text-center focus:outline-none focus:border-gray-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="calcularTodo()" class="w-full bg-gradient-to-r from-amber-500 to-yellow-600 text-gray-950 font-bold py-3 px-4 rounded-xl shadow-lg hover:brightness-110 transition flex items-center justify-center gap-2 cursor-pointer text-sm">
+                            <i data-lucide="calculator" class="w-4 h-4"></i> Procesar Adaptación Científica
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PANEL DE DIAGNÓSTICO Y RETÍCULAS (8 columnas) -->
+            <main class="lg:col-span-8 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- DIAGNÓSTICO OD -->
+                    <div class="glass-card p-6 rounded-2xl border border-amber-500/20 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-amber-400 flex items-center gap-1.5">
+                                    <i data-lucide="activity" class="w-4 h-4"></i> Prescripción Final OD
+                                </h3>
+                                <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded">Ojo Derecho</span>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2 mb-4 text-xs">
+                                <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                    <span class="text-gray-500 block text-[10px]">Rx Corregida LC:</span>
+                                    <span class="font-mono text-amber-200 text-sm font-semibold" id="out_od_rx">-</span>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                    <span class="text-gray-500 block text-[10px]">Eq. Esférico Comercial:</span>
+                                    <span class="font-mono text-amber-200 text-sm font-semibold" id="out_od_ee">-</span>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                    <span class="text-gray-500 block text-[10px]">Curva Base (CB):</span>
+                                    <span class="font-mono text-gray-200 text-sm font-semibold" id="out_od_cb">-</span>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                    <span class="text-gray-500 block text-[10px]">Diámetro Sugerido:</span>
+                                    <span class="font-mono text-gray-200 text-sm font-semibold" id="out_od_dia">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico Cruz Óptica OD -->
+                        <div class="reticle-container mt-2">
+                            <!-- Transportador vectorial tenue en el fondo -->
+                            <svg class="protractor-bg" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="0.5" stroke-dasharray="1 2"/>
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="0.2"/>
+                                <line x1="5" y1="50" x2="95" y2="50" stroke="currentColor" stroke-width="0.2"/>
+                                <line x1="50" y1="5" x2="50" y2="95" stroke="currentColor" stroke-width="0.2"/>
+                            </svg>
+                            <span class="axis-label top-2 left-1/2 -translate-x-1/2">90°</span>
+                            <span class="axis-label right-2 top-1/2 -translate-y-1/2">0° / 180°</span>
+                            <div id="cross_od_1" class="optical-axis" data-power="--"></div>
+                            <div id="cross_od_2" class="optical-axis secondary" data-power="--"></div>
+                        </div>
+                    </div>
+
+                    <!-- DIAGNÓSTICO OS -->
+                    <div class="glass-card p-6 rounded-2xl border border-gray-700/40 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-slate-300 flex items-center gap-1.5">
+                                    <i data-lucide="activity" class="w-4 h-4"></i> Prescripción Final OS
+                                </h3>
+                                <span class="text-[10px] bg-gray-500/10 text-gray-400 border border-gray-700 px-2 py-0.5 rounded">Ojo Izquierdo</span>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2 mb-4 text-xs">
+                                <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                    <span class="text-gray-500 block text-[10px]">Rx Corregida LC:</span>
+                                    <span class="font-mono text-slate-200 text-sm font-semibold" id="out_os_rx">-</span>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                    <span class="text-gray-500 block text-[10px]">Eq. Esférico Comercial:</span>
+                                    <span class="font-mono text-slate-200 text-sm font-semibold" id="out_os_ee">-</span>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                    <span class="text-gray-500 block text-[10px]">Curva Base (CB):</span>
+                                    <span class="font-mono text-gray-200 text-sm font-semibold" id="out_os_cb">-</span>
+                                </div>
+                                <div class="bg-gray-900/60 p-2 rounded border border-gray-800">
+                                    <span class="text-gray-500 block text-[10px]">Diámetro Sugerido:</span>
+                                    <span class="font-mono text-gray-200 text-sm font-semibold" id="out_os_dia">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico Cruz Óptica OS -->
+                        <div class="reticle-container mt-2">
+                            <svg class="protractor-bg" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="0.5" stroke-dasharray="1 2"/>
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="0.2"/>
+                                <line x1="5" y1="50" x2="95" y2="50" stroke="currentColor" stroke-width="0.2"/>
+                                <line x1="50" y1="5" x2="50" y2="95" stroke="currentColor" stroke-width="0.2"/>
+                            </svg>
+                            <span class="axis-label top-2 left-1/2 -translate-x-1/2">90°</span>
+                            <span class="axis-label right-2 top-1/2 -translate-y-1/2">0° / 180°</span>
+                            <div id="cross_os_1" class="optical-axis" data-power="--"></div>
+                            <div id="cross_os_2" class="optical-axis secondary" data-power="--"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROCEDIMIENTOS MATEMÁTICOS EXPLICADOS -->
+                <div class="glass-card p-6 rounded-2xl border border-gray-800">
+                    <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <i data-lucide="binary" class="w-4 h-4 text-amber-500"></i> Memoria de Cálculo y Justificación Óptica
+                    </h3>
+                    <div class="space-y-4 text-xs text-gray-400">
+                        <div class="bg-gray-950 p-4 rounded-xl border border-gray-900">
+                            <h4 class="font-semibold text-amber-500 mb-1">1. Compensación de Distancia de Vértice ($F_{lc}$)</h4>
+                            <p>Para potencias mayores a $\pm4.00\text{ D}$, se aplica la fórmula de compensación: $F_{lc} = \frac{F}{1 - d \cdot F}$. Al estar en contacto directo ($0\text{ mm}$), los lentes negativos disminuyen ligeramente su poder absoluto demandado en comparación a la gafa.</p>
+                        </div>
+                        <div class="bg-gray-950 p-4 rounded-xl border border-gray-900">
+                            <h4 class="font-semibold text-slate-300 mb-1">2. Obtención de Radios de Curvatura y Curva Base (CB)</h4>
+                            <p>Los radios de curvatura corneales se obtienen transformando el poder de las K's mediante la ecuación: $r = \frac{n - 1}{D_k}$ (donde el índice queratométrico estándar es $n = 1.3375$). Tras calcular el radio medio en milímetros, se le añaden convencionalmente entre $0.5\text{ mm}$ y $0.8\text{ mm}$ (Factor de Flatness) para asegurar el correcto paso de la película lagrimal en lentes hidrogélicos blandos.</p>
+                        </div>
+                        <div class="bg-gray-950 p-4 rounded-xl border border-gray-900">
+                            <h4 class="font-semibold text-amber-500 mb-1">3. Diámetro Total del Lente ($L_{\emptyset}$)</h4>
+                            <p>Siguiendo la regla estándar de adaptación corneal: $\text{Diámetro} = \text{DHIV} + 2.00\text{ mm}$. Esto garantiza un solape uniforme de $1.00\text{ mm}$ a cada lado del limbo esclerocorneal.</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="mt-8 text-center text-xs text-gray-600 border-t border-gray-950 pt-4">
+            OptoMetric Pro 2026 • Desarrollado bajo especificaciones clínicas de Contactología Científica.
+        </footer>
+    </div>
+
+    <script>
+        // Inicializar iconos
+        lucide.createIcons();
+
+        function calcularTodo() {
+            // Inputs globales
+            const dv = parseFloat(document.getElementById('dv').value) / 1000; // Pasar mm a metros
+            const dhiv = parseFloat(document.getElementById('dhiv').value);
+
+            // Procesar ambos ojos
+            procesarOjo('od', dv, dhiv);
+            procesarOjo('os', dv, dhiv);
+        }
+
+        function procesarOjo(ojo, dv, dhiv) {
+            const esf = parseFloat(document.getElementById(`${ojo}_esf`).value);
+            const cil = parseFloat(document.getElementById(`${ojo}_cil`).value);
+            const eje = parseInt(document.getElementById(`${ojo}_eje`).value);
+            const k1 = parseFloat(document.getElementById(`${ojo}_k1`).value);
+            const k2 = parseFloat(document.getElementById(`${ojo}_k2`).value);
+
+            // 1. Compensación Distancia de Vértice para los dos meridianos principales
+            const p1 = esf;
+            const p2 = esf + cil;
+
+            const p1_comp = compensarVertice(p1, dv);
+            const p2_comp = compensarVertice(p2, dv);
+
+            const esf_lc = p1_comp;
+            const cil_lc = p2_comp - p1_comp;
+
+            // Formatear salida Rx LC
+            document.getElementById(`out_${ojo}_rx`).innerText = 
+                `${esf_lc >= 0 ? '+' : ''}${esf_lc.toFixed(2)} [${cil_lc >= 0 ? '+' : ''}${cil_lc.toFixed(2)} x ${eje}°]`;
+
+            // 2. Equivalente Esférico Comercial (Redondeo a pasos de 0.25)
+            const ee_puro = esf_lc + (cil_lc / 2);
+            const ee_comercial = Math.round(ee_puro * 4) / 4;
+            document.getElementById(`out_${ojo}_ee`).innerText = `${ee_comercial >= 0 ? '+' : ''}${ee_comercial.toFixed(2)} D`;
+
+            // 3. Radios de Curvatura (en mm) basados en K's (Índice 1.3375)
+            const r1 = 337.5 / k1;
+            const r2 = 337.5 / k2;
+            const r_medio = (r1 + r2) / 2;
+
+            // Curva Base blanda aproximada (Radio Medio + 0.70 mm de aplanamiento estándar)
+            const cb = r_medio + 0.70;
+            document.getElementById(`out_${ojo}_cb`).innerText = `${cb.toFixed(2)} mm (K Med: ${r_medio.toFixed(2)}mm)`;
+
+            // 4. Diámetro del lente de contacto
+            const diametro = dhiv + 2.0;
+            document.getElementById(`out_${ojo}_dia`).innerText = `${diametro.toFixed(1)} mm`;
+
+            // 5. Renderizar y rotar los ejes en la Cruz Óptica del Gráfico
+            // Eje 1 (Contra-eje óptico principal del cilindro)
+            const eje1_elem = document.getElementById(`cross_${ojo}_1`);
+            eje1_elem.style.transform = `translate(-50%, -50%) rotate(${-eje}deg)`;
+            eje1_elem.setAttribute('data-power', `${p1_comp >= 0 ? '+' : ''}${p1_comp.toFixed(2)}`);
+
+            // Eje 2 (Perpendicular a 90 grados)
+            const eje2_elem = document.getElementById(`cross_${ojo}_2`);
+            eje2_elem.style.transform = `translate(-50%, -50%) rotate(${-(eje + 90)}deg)`;
+            eje2_elem.setAttribute('data-power', `${p2_comp >= 0 ? '+' : ''}${p2_comp.toFixed(2)}`);
+        }
+
+        function compensarVertice(poder, d) {
+            if (Math.abs(poder) < 4.0) return poder; // No requiere compensación estricta si es menor de 4D
+            return poder / (1 - (d * poder));
+        }
+
+        // Ejecución automática al cargar la página por primera vez
+        window.onload = () => {
+            calcularTodo();
+        };
+    </script>
+</body>
+</html>
