@@ -36,10 +36,9 @@
            EL ÚNICO AJUSTE: CORRECCIÓN DE DISTRIBUCIÓN PARA LOS GRÁFICOS
            ========================================================================== */
         .charts-wrapper {
-            display: flex;
-            flex-wrap: wrap; /* Permite que los gráficos bajen si no caben */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
-            justify-content: center;
             margin-top: 20px;
         }
         .chart-card {
@@ -47,8 +46,7 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 15px;
-            flex: 1 1 300px; /* Base de 300px; se estiran en PC y se apilan en celular */
-            max-width: 100%;
+            width: 100%;
             min-height: 320px;
             display: flex;
             flex-direction: column;
