@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptoMetric Pro v4 - Suite Óptica Avanzada</title>
+    <!-- Tailwind CSS para diseño responsivo -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Lucide Icons para interfaz elegante -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #090d16;
+            color: #e2e8f0;
+        }
+
+        .gold-text {
+            color: #d4af37;
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .silver-text {
+            color: #c0c0c0;
+            background: linear-gradient(135deg, #ffffff 0%, #c0c0c0 50%, #707070 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(13, 20, 35, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .reticle-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: rgba(8, 12, 21, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: visible;
+        }
+
+        .protractor-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .optical-axis {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 170px;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, #d4af37 70%, #d4af37);
+            transform-origin: center center;
+            transform: translate(-50%, -50%) rotate(0deg);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+        }
+
+        .optical-axis.secondary {
+            background: linear-gradient(90deg, transparent, #c0c0c0 70%, #c0c0c0);
+        }
+
+        .power-label {
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            font-size: 10px;
+            font-weight: 700;
+            font-family: monospace;
+            background: #090d16;
+            padding: 2px 4px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+            white-space: nowrap;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+            z-index: 30;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- HEADER -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-8 pb-6 border-b border-gray-900 gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-3 bg-gradient-to-br from-amber-500/10 to-yellow-600/5 rounded-xl border border-amber-500/20">
+                    <i data-lucide="activity" class="w-8 h-8 text-amber-400"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold tracking-wide gold-text">OptoMetric Pro Suite</h1>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest flex items-center gap-1">
+                        <i data-lucide="sliders" class="w-3.5 h-3.5 text-amber-500"></i> Módulos Clínicos Seleccionables
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- CONTROLES E INSUMOS -->
+            <section class="lg:col-span-4 space-y-4">
+                
+                <!-- PARÁMETROS BÁSICOS Y RX -->
+                <div class="glass-card p-5 rounded-xl border-t border-amber-500/30 shadow-xl">
+                    <h2 class="text-sm font-bold text-amber-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i data-lucide="user" class="w-4 h-4"></i> Refracción del Paciente
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <label class="text-[10px] text-gray-400 block mb-1">Vértice</label>
+                                <input type="number" id="dv" value="12" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-2 text-xs text-amber-200">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-400 block mb-1">DHIV</label>
+                                <input type="number" id="dhiv" value="11.8" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-2 text-xs text-amber-200">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-amber-400 block mb-1">Adición (ADD)</label>
+                                <input type="number" id="add_comun" value="2.00" step="0.25" min="0.00" class="w-full bg-gray-950 border border-amber-900/50 rounded py-1 px-2 text-xs text-amber-400 font-bold">
+                            </div>
+                        </div>
+
+                        <!-- INPUT OD -->
+                        <div class="p-3 bg-gray-900/30 rounded-lg border border-gray-800">
+                            <span class="text-[11px] font-bold text-amber-500 uppercase tracking-wider block mb-2">Ojo Derecho (OD)</span>
+                            <div class="grid grid-cols-3 gap-1 mb-2">
+                                <input type="number" id="od_esf" value="0.00" step="0.25" placeholder="Esf" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-1.5 text-xs text-center">
+                                <input type="number" id="od_cil" value="-0.75" step="0.25" placeholder="Cil" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-1.5 text-xs text-center">
+                                <input type="number" id="od_eje" value="151" placeholder="Eje" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-1.5 text-xs text-center">
+                            </div>
+                            <div class="grid grid-cols-2 gap-1">
+                                <input type="number" id="od_k1" value="43.00" placeholder="K1" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-1.5 text-xs text-center">
+                                <input type="number" id="od_k2" value="43.75" placeholder="K2" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-1.5 text-xs text-center">
+                            </div>
+                        </div>
+
+                        <!-- INPUT OS -->
+                        <div class="p-3 bg-gray-900/30 rounded-lg border border-gray-800">
+                            <span class="text-[11px] font-bold silver-text uppercase tracking-wider block mb-2">Ojo Izquierdo (OS)</span>
+                            <div class="grid grid-cols-3 gap-1 mb-2">
+                                <input type="number" id="os_esf" value="0.00" step="0.25" placeholder="Esf" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-1.5 text-xs text-center">
+                                <input type="number" id="os_cil" value="-1.00" step="0.25" placeholder="Cil" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-1.5 text-xs text-center">
+                                <input type="number" id="os_eje" value="14" placeholder="Eje" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-1.5 text-xs text-center">
+                            </div>
+                            <div class="grid grid-cols-2 gap-1">
+                                <input type="number" id="os_k1" value="42.50" placeholder="K1" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-1.5 text-xs text-center">
+                                <input type="number" id="os_k2" value="43.50" placeholder="K2" class="w-full bg-gray-950 border border-gray-800 rounded py-1 px-1.5 text-xs text-center">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHECKLIST DE MÓDULOS DE CÁLCULO -->
+                <div class="glass-card p-5 rounded-xl border border-gray-800">
+                    <h2 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i data-lucide="check-square" class="w-4 h-4 text-amber-500"></i> Panel de Configuración Analítica
+                    </h2>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-3 cursor-pointer text-xs">
+                            <input type="checkbox" id="chk_cyl_pos" checked onchange="calcularTodo()" class="w-4 h-4 rounded bg-gray-950 border-gray-800 text-amber-500 focus:ring-0">
+                            <span>1. Transposición a Cilindro Positivo (+)</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer text-xs">
+                            <input type="checkbox" id="chk_bicil" checked onchange="calcularTodo()" class="w-4 h-4 rounded bg-gray-950 border-gray-800 text-amber-500 focus:ring-0">
+                            <span>2. Fórmula Bicilíndrica Pura</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer text-xs">
+                            <input type="checkbox" id="chk_adicion" checked onchange="calcularTodo()" class="w-4 h-4 rounded bg-gray-950 border-gray-800 text-amber-500 focus:ring-0">
+                            <span>3. Adición de Cerca (Visión Cercana)</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer text-xs">
+                            <input type="checkbox" id="chk_ee" checked onchange="calcularTodo()" class="w-4 h-4 rounded bg-gray-950 border-gray-800 text-amber-500 focus:ring-0">
+                            <span>4. Equivalente Esférico Comercial</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer text-xs">
+                            <input type="checkbox" id="chk_cruz" checked onchange="calcularTodo()" class="w-4 h-4 rounded bg-gray-950 border-gray-800 text-amber-500 focus:ring-0">
+                            <span>5. Cruz Óptica Dinámica y Caja de Stock</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <button onclick="calcularTodo()" class="w-full bg-gradient-to-r from-amber-500 to-yellow-600 text-gray-950 font-bold py-2.5 px-4 rounded-lg shadow-lg hover:brightness-110 transition flex items-center justify-center gap-2 cursor-pointer text-xs uppercase tracking-wider">
+                    <i data-lucide="cpu" class="w-3.5 h-3.5"></i> Procesar Módulos
+                </button>
+            </section>
+
+            <!-- CONTENEDOR DE RESULTADOS DINÁMICOS -->
+            <main class="lg:col-span-8 space-y-6">
+                
+                <!-- PANELES DE LECTURA DE DATOS -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- OJO DERECHO -->
+                    <div class="glass-card p-6 rounded-xl border-l-4 border-amber-500 space-y-4">
+                        <h2 class="text-sm font-bold text-amber-400 flex items-center justify-between">
+                            <span>OJO DERECHO (OD)</span>
+                            <span class="text-[10px] bg-amber-500/10 text-amber-300 px-2 py-0.5 rounded uppercase font-mono" id="rx_base_od">--</span>
+                        </h2>
+                        
+                        <div id="wrapper_od" class="space-y-3"></div>
+                    </div>
+
+                    <!-- OJO IZQUIERDO -->
+                    <div class="glass-card p-6 rounded-xl border-l-4 border-slate-400 space-y-4">
+                        <h2 class="text-sm font-bold text-slate-300 flex items-center justify-between">
+                            <span>OJO IZQUIERDO (OS)</span>
+                            <span class="text-[10px] bg-gray-500/10 text-slate-300 px-2 py-0.5 rounded uppercase font-mono" id="rx_base_os">--</span>
+                        </h2>
+                        
+                        <div id="wrapper_os" class="space-y-3"></div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        window.onload = function() {
+            calcularTodo();
+        };
+
+        function calcularTodo() {
+            const dv = parseFloat(document.getElementById('dv').value) / 1000;
+            const dhiv = parseFloat(document.getElementById('dhiv').value);
+            const add = parseFloat(document.getElementById('add_comun').value) || 0;
+
+            procesarOjo('od', dv, dhiv, add);
+            procesarOjo('os', dv, dhiv, add);
+        }
+
+        function obtenerEsferaYEtiqueta(valor) {
+            const absVal = Math.abs(valor);
+            if (absVal <= 6.00) {
+                return { valor: Math.round(valor * 4) / 4, etiqueta: "Esfera Baja (Paso 0.25 D)" };
+            } else {
+                return { valor: Math.round(valor * 2) / 2, etiqueta: "Esfera Alta (Paso 0.50 D)" };
+            }
+        }
+
+        function redondearCilindroComercial(valor) {
+            if (Math.abs(valor) < 0.75) return 0.00;
+            const base = -0.75;
+            const diff = valor - base;
+            return base + (Math.round(diff / 0.50) * 0.50);
+        }
+
+        function compensarVertice(poder, dv) {
+            if (Math.abs(poder) < 4.00) return poder;
+            return poder / (1.0 - (dv * poder));
+        }
+
+        function procesarOjo(ojo, dv, dhiv, add) {
+            const esf = parseFloat(document.getElementById(`${ojo}_esf`).value) || 0;
+            const cil = parseFloat(document.getElementById(`${ojo}_cil`).value) || 0;
+            const eje = parseInt(document.getElementById(`${ojo}_eje`).value) || 0;
+            const k1 = parseFloat(document.getElementById(`${ojo}_k1`).value) || 43.00;
+            const k2 = parseFloat(document.getElementById(`${ojo}_k2`).value) || 43.00;
+
+            document.getElementById(`rx_base_${ojo}`).innerText = `VL: ${esf >= 0 ? '+' : ''}${esf.toFixed(2)} (${cil >= 0 ? '+' : ''}${cil.toFixed(2)} x ${eje}°)`;
+
+            // Habilitar los estados del checklist
+            const c_cyl_pos = document.getElementById('chk_cyl_pos').checked;
+            const c_bicil = document.getElementById('chk_bicil').checked;
+            const c_adicion = document.getElementById('chk_adicion').checked;
+            const c_ee = document.getElementById('chk_ee').checked;
+            const c_cruz = document.getElementById('chk_cruz').checked;
+
+            const container = document.getElementById(`wrapper_${ojo}`);
+            container.innerHTML = ""; // Limpiar renderizado previo
+
+            // 1. CILINDRO POSITIVO
+            if (c_cyl_pos) {
+                const transEsf = esf + cil;
+                const transCil = -cil;
+                const transEje = (eje + 90) % 180 || 180;
+                container.innerHTML += `
+                    <div class="p-2.5 bg-gray-900/50 rounded border border-gray-800">
+                        <span class="text-[10px] text-amber-500 font-bold uppercase tracking-wider block">1. Transposición Cilindro (+)</span>
+                        <p class="font-mono text-xs text-gray-200 mt-0.5">${transEsf >= 0 ? '+' : ''}${transEsf.toFixed(2)} (${transCil >= 0 ? '+' : ''}${transCil.toFixed(2)} x ${transEje}°)</p>
+                    </div>
+                `;
+            }
+
+            // 2. FÓRMULA BICILÍNDRICA
+            if (c_bicil) {
+                const eje2 = (eje + 90) % 180 || 180;
+                container.innerHTML += `
+                    <div class="p-2.5 bg-gray-900/50 rounded border border-gray-800">
+                        <span class="text-[10px] text-amber-500 font-bold uppercase tracking-wider block">2. Fórmula Bicilíndrica Pura</span>
+                        <p class="font-mono text-xs text-gray-300 mt-0.5">Cil 1: ${esf >= 0 ? '+' : ''}${esf.toFixed(2)} x ${eje2}° <span class="text-gray-600">/</span> Cil 2: ${(esf+cil) >= 0 ? '+' : ''}${(esf+cil).toFixed(2)} x ${eje}°</p>
+                    </div>
+                `;
+            }
+
+            // 3. ADICIÓN (VISIÓN CERCANA)
+            if (c_adicion) {
+                const esfCerca = esf + add;
+                container.innerHTML += `
+                    <div class="p-2.5 bg-yellow-500/5 rounded border border-yellow-500/20">
+                        <span class="text-[10px] text-yellow-400 font-bold uppercase tracking-wider block">3. Visión Cercana (Rx + ADD ${add.toFixed(2)})</span>
+                        <p class="font-mono text-xs text-yellow-200 mt-0.5">${esfCerca >= 0 ? '+' : ''}${esfCerca.toFixed(2)} (${cil >= 0 ? '+' : ''}${cil.toFixed(2)} x ${eje}°)</p>
+                    </div>
+                `;
+            }
+
+            // 4. EQUIVALENTE ESFÉRICO COMERCIAL
+            const ee_exacto = esf + (cil / 2);
+            const ee_comercial = obtenerEsferaYEtiqueta(ee_exacto).valor;
+            if (c_ee) {
+                container.innerHTML += `
+                    <div class="p-2.5 bg-gray-900/50 rounded border border-gray-800">
+                        <span class="text-[10px] text-amber-500 font-bold uppercase tracking-wider block">4. Equivalente Esférico (Stock LC)</span>
+                        <p class="font-mono text-xs text-gray-200 mt-0.5">Matemático: ${ee_exacto.toFixed(2)} D ➔ <strong class="text-amber-400">${ee_comercial >= 0 ? '+' : ''}${ee_comercial.toFixed(2)} D</strong></p>
+                    </div>
+                `;
+            }
+
+            // 5. CRUZ ÓPTICA Y CAJA DE STOCK (TODO LO ANTERIOR)
+            if (c_cruz) {
+                const p1_gafa = esf;
+                const p2_gafa = esf + cil;
+                const p1_comp = compensarVertice(p1_gafa, dv);
+                const p2_comp = compensarVertice(p2_gafa, dv);
+
+                const lc_esf_exacta = p1_comp;
+                const lc_cil_exacta = p2_comp - p1_comp;
+
+                const resEsfera = obtenerEsferaYEtiqueta(lc_esf_exacta);
+                const lc_esf_comercial = resEsfera.valor;
+                const lc_cil_comercial = redondearCilindroComercial(lc_cil_exacta);
+                const lc_eje_comercial = Math.round(eje / 10) * 10;
+
+                const k_promedio = (k1 + k2) / 2;
+                const cb_mm = (337.5 / k_promedio) + 0.8;
+                const dia_mm = dhiv + 2.0;
+
+                let stringFinalLC = lc_cil_comercial === 0 
+                    ? `${lc_esf_comercial >= 0 ? '+' : ''}${lc_esf_comercial.toFixed(2)} Rfa.` 
+                    : `${lc_esf_comercial >= 0 ? '+' : ''}${lc_esf_comercial.toFixed(2)} (${lc_cil_comercial.toFixed(2)} x ${lc_eje_comercial}°)`;
+
+                container.innerHTML += `
+                    <div class="p-3 bg-amber-500/5 rounded-lg border border-amber-500/30 space-y-3">
+                        <div>
+                            <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">5. Lente de Contacto (Caja Comercial de Stock)</span>
+                            <p class="font-mono text-base font-bold text-amber-300 mt-0.5">${stringFinalLC}</p>
+                            <span class="text-[9px] text-gray-400 block font-mono mt-0.5">${resEsfera.etiqueta} | Cilindro en pasos de 0.50 D</span>
+                        </div>
+                        
+                        <!-- Mini Gráfico de la Cruz -->
+                        <div class="py-2 flex flex-col items-center bg-gray-950/50 rounded border border-gray-900">
+                            <span class="text-[9px] text-gray-500 font-mono mb-2">Cruz Óptica Compensada (LC)</span>
+                            <div class="reticle-container" id="cruz_container_${ojo}">
+                                <svg class="protractor-bg" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+                                    <line x1="5" y1="50" x2="95" y2="50" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+                                    <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>
+                                </svg>
+                                <div id="cruz_axis_${ojo}_1" class="optical-axis">
+                                    <div id="lbl_axis_${ojo}_1" class="power-label">--</div>
+                                </div>
+                                <div id="cruz_axis_${ojo}_2" class="optical-axis secondary">
+                                    <div id="lbl_axis_${ojo}_2" class="power-label">--</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 text-[10px] pt-1">
+                            <div class="bg-gray-950/60 p-1.5 rounded border border-gray-900">
+                                <span class="text-gray-500 block">Curva Base:</span>
+                                <span class="font-mono font-bold text-gray-300">${cb_mm.toFixed(2)} mm</span>
+                            </div>
+                            <div class="bg-gray-950/60 p-1.5 rounded border border-gray-900">
+                                <span class="text-gray-500 block">Diámetro total:</span>
+                                <span class="font-mono font-bold text-gray-300">${dia_mm.toFixed(1)} mm</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Renderizado asincrónico inmediato de los vectores gráficos de la cruz
+                setTimeout(() => {
+                    const el1 = document.getElementById(`cruz_axis_${ojo}_1`);
+                    const el2 = document.getElementById(`cruz_axis_${ojo}_2`);
+                    if(el1 && el2) {
+                        el1.style.transform = `translate(-50%, -50%) rotate(${-eje}deg)`;
+                        el2.style.transform = `translate(-50%, -50%) rotate(${-eje + 90}deg)`;
+                    }
+                    const lbl1 = document.getElementById(`lbl_axis_${ojo}_1`);
+                    const lbl2 = document.getElementById(`lbl_axis_${ojo}_2`);
+                    if(lbl1 && lbl2) {
+                        lbl1.innerText = `${p1_comp >= 0 ? '+' : ''}${p1_comp.toFixed(2)}D a ${eje}°`;
+                        lbl1.style.transform = `rotate(${eje}deg) translateY(-50%)`;
+                        lbl2.innerText = `${p2_comp >= 0 ? '+' : ''}${p2_comp.toFixed(2)}D a ${(eje+90)%180}°`;
+                        lbl2.style.transform = `rotate(${eje - 90}deg) translateY(-50%)`;
+                    }
+                }, 50);
+            }
+        }
+    </script>
+</body>
+</html>
