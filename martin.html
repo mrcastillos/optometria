@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suite Optométrica</title>
+    <!-- Incluimos Chart.js desde CDN para las gráficas -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2b6cb0;
+            --primary-dark: #2c5282;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --border: #e2e8f0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; padding: 20px; background: var(--primary); color: white; border-radius: 8px; }
+        .section { background: var(--card-bg); padding: 25px; border-radius: 8px; margin-bottom: 25px; border: 1px solid var(--border); }
+        h2 { color: var(--primary-dark); margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
+        h3 { color: var(--text); margin-bottom: 15px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; }
+        input { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; }
+        .grid-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        button { background: var(--primary); color: white; border: none; padding: 12px 24px; font-size: 1rem; font-weight: 600; border-radius: 6px; cursor: pointer; width: 100%; }
+        button:hover { background: var(--primary-dark); }
+        .results-box { background: #edf2f7; padding: 15px; border-radius: 6px; margin-top: 15px; }
+        .results-box p { margin-bottom: 8px; }
+        .badge { display: inline-block; padding: 3px 8px; background: var(--primary); color: white; border-radius: 4px; font-weight: bold; }
+
+        /* ==========================================================================
+           EL ÚNICO AJUSTE: CORRECCIÓN DE DISTRIBUCIÓN PARA LOS GRÁFICOS
+           ========================================================================== */
+        .charts-wrapper {
+            display: flex;
+            flex-wrap: wrap; /* Permite que los gráficos bajen si no caben */
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .chart-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            flex: 1 1 300px; /* Base de 300px; se estiran en PC y se apilan en celular */
+            max-width: 100%;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Suite Optométrica</h1>
+        <p>Gabinete de Diagnóstico y Contactología Avanzada</p>
+    </header>
+
+    <!-- 1. Datos Clínicos -->
+    <div class="section">
+        <h2>1. Valores Queratométricos e Ingreso de Datos</h2>
+        <div class="grid-inputs">
+            <div class="form-group">
+                <label for="rad-k1">Radio K1 (Horizontal en mm):</label>
+                <input type="number" id="rad-k1" step="0.01" value="7.80">
+            </div>
+            <div class="form-group">
+                <label for="rad-k2">Radio K2 (Vertical en mm):</label>
+                <input type="number" id="rad-k2" step="0.01" value="7.50">
+            </div>
+            <div class="form-group">
+                <label for="eje-k1">Eje de K1 (Grados °):</label>
+                <input type="number" id="eje-k1" value="0" min="0" max="180">
+            </div>
+            <div class="form-group">
+                <label for="rx-esfera">Esfera de Refracción (D):</label>
+                <input type="number" id="rx-esfera" step="0.25" value="-3.00">
+            </div>
+        </div>
+        <div style="margin-top: 15px;">
+            <button onclick="calcularTodo()">Procesar y Generar Diagnóstico</button>
+        </div>
+    </div>
+
+    <!-- 2. Diagnóstico -->
+    <div class="section">
+        <h2>2. Diagnóstico Clínico Automatizado</h2>
+        <div class="results-box">
+            <p><strong>Astigmatismo Corneal:</strong> <span id="txt-astigmatismo">-1.63 D</span></p>
+            <p><strong>Tipo de Regla (Eje):</strong> <span id="txt-regla" class="badge">Con la Regla</span></p>
+            <p><strong>Geometría de la Córnea:</strong> <span id="txt-geometria">Prolata Estándar</span></p>
+            <p><strong>Sugerencia Base Lente de Contacto:</strong> <span id="txt-lente">Lente RGP Esférica (Borde Estabilizado)</span></p>
+        </div>
+    </div>
+
+    <!-- 3. Gráficos Reacomodados -->
+    <div class="section">
+        <h2>3. Análisis Visual y Gráficos de Soporte</h2>
+        <div class="charts-wrapper">
+            <div class="chart-card">
+                <h3>Orientación del Astigmatismo</h3>
+                <div class="chart-container">
+                    <canvas id="chartRegla"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Geometría de la Córnea Aprox.</h3>
+                <div class="chart-container">
+                    <canvas id="chartGeometria"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Distribución del Lente de Contacto</h3>
+                <div class="chart-container">
+                    <canvas id="chartLente"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let chartRegla = null;
+    let chartGeometria = null;
+    let chartLente = null;
+
+    function calcularTodo() {
+        const k1 = parseFloat(document.getElementById('rad-k1').value) || 7.80;
+        const k2 = parseFloat(document.getElementById('rad-k2').value) || 7.50;
+        const eje = parseFloat(document.getElementById('eje-k1').value) || 0;
+        const esfera = parseFloat(document.getElementById('rx-esfera').value) || -3.00;
+
+        const dioptriasK1 = 337.5 / k1;
+        const dioptriasK2 = 337.5 / k2;
+        const astigmatismoCorneal = Math.abs(dioptriasK1 - dioptriasK2);
+
+        document.getElementById('txt-astigmatismo').innerText = `-${astigmatismoCorneal.toFixed(2)} D`;
+
+        let regla = "Indeterminado";
+        let scoreRegla = [0, 0, 0];
+        if ((eje >= 0 && eje <= 30) || (eje >= 150 && eje <= 180)) {
+            regla = "Con la Regla";
+            scoreRegla = [85, 10, 5];
+        } else if (eje > 60 && eje < 120) {
+            regla = "Contra la Regla";
+            scoreRegla = [10, 85, 5];
+        } else {
+            regla = "Astigmatismo Oblicuo";
+            scoreRegla = [15, 15, 70];
+        }
+        document.getElementById('txt-regla').innerText = regla;
+
+        let geometria = "Esférica / Regular";
+        let datosGeometria = [50, 50];
+        if (astigmatismoCorneal < 0.75) {
+            geometria = "Córnea Esférica o Cuasi-esférica";
+            datosGeometria = [48, 52];
+        } else if (astigmatismoCorneal >= 0.75 && astigmatismoCorneal <= 2.5) {
+            geometria = "Prolata Estándar (Elíptica)";
+            datosGeometria = [35, 65];
+        } else {
+            geometria = "Oblata o Astigmatismo Elevado";
+            datosGeometria = [75, 25];
+        }
+        document.getElementById('txt-geometria').innerText = geometria;
+
+        let sugerenciaLente = "Lente Blando Esférico";
+        let datosLente = [0, 0, 0];
+        if (astigmatismoCorneal < 0.75 && Math.abs(esfera) < 4.00) {
+            sugerenciaLente = "Lente Blando Convencional o Hidrogel";
+            datosLente = [80, 15, 5];
+        } else if (astigmatismoCorneal >= 0.75 && astigmatismoCorneal <= 2.00) {
+            sugerenciaLente = "Lente Gas Permeable (RGP) Esférico";
+            datosLente = [20, 70, 10];
+        } else {
+            sugerenciaLente = "Lente Gas Permeable (RGP) Tórico / Escleral";
+            datosLente = [5, 15, 80];
+        }
+        document.getElementById('txt-lente').innerText = sugerenciaLente;
+
+        if (chartRegla) chartRegla.destroy();
+        if (chartGeometria) chartGeometria.destroy();
+        if (chartLente) chartLente.destroy();
+
+        const ctx1 = document.getElementById('chartRegla').getContext('2d');
+        chartRegla = new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: ['Con la Regla', 'Contra la Regla', 'Oblicuo'],
+                datasets: [{ data: scoreRegla, backgroundColor: ['#2b6cb0', '#4a5568', '#cbd5e0'], borderWidth: 1 }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } } }
+        });
+
+        const ctx2 = document.getElementById('chartGeometria').getContext('2d');
+        chartGeometria = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Aplanamiento', 'Curvatura Asférica'],
+                datasets: [{ data: datosGeometria, backgroundColor: ['#4c51bf', '#48bb78'] }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { min: 0, max: 100 } } }
+        });
+
+        const ctx3 = document.getElementById('chartLente').getContext('2d');
+        chartLente = new Chart(ctx3, {
+            type: 'polarArea',
+            data: {
+                labels: ['Blando', 'RGP Esférico', 'RGP Tórico / Esp.'],
+                datasets: [{ data: datosLente, backgroundColor: ['rgba(66, 153, 225, 0.7)', 'rgba(72, 187, 120, 0.7)', 'rgba(237, 137, 54, 0.7)'], borderWidth: 1 }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } }, scales: { r: { ticks: { display: false } } } }
+        });
+    }
+
+    window.onload = function() { calcularTodo(); };
+</script>
+
+</body>
+</html>
