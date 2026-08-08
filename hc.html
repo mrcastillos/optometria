@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historia Clínica Optométrica e Integral - Centro Visual Morelos</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm 10mm 10mm 10mm;
+            @bottom-right {
+                content: "Página " counter(page) " de " counter(pages);
+                font-family: Arial, sans-serif;
+                font-size: 8pt;
+                color: #555555;
+            }
+            @bottom-left {
+                content: "Centro Visual Morelos — Expediente Clínico Optométrico Integral";
+                font-family: Arial, sans-serif;
+                font-size: 8pt;
+                color: #555555;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 8.5pt;
+            line-height: 1.2;
+            color: #1a202c;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Encabezado */
+        .header-container {
+            border-bottom: 2px solid #005b82;
+            padding-bottom: 4px;
+            margin-bottom: 8px;
+        }
+
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .header-table td {
+            vertical-align: middle;
+            padding: 0;
+        }
+
+        .logo-title {
+            color: #005b82;
+            font-size: 15pt;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .slogan {
+            color: #2c7a7b;
+            font-size: 8.5pt;
+            font-style: italic;
+            margin-top: 1px;
+        }
+
+        .doc-title {
+            background-color: #005b82;
+            color: #ffffff;
+            text-align: center;
+            font-size: 9.5pt;
+            font-weight: bold;
+            padding: 4px;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 2px;
+        }
+
+        .section-header {
+            background-color: #eef6f9;
+            border-left: 4px solid #005b82;
+            color: #005b82;
+            font-size: 9pt;
+            font-weight: bold;
+            padding: 3px 6px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            page-break-after: avoid;
+        }
+
+        .sub-header {
+            color: #2c7a7b;
+            font-size: 8.5pt;
+            font-weight: bold;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 2px;
+            margin-top: 8px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            page-break-after: avoid;
+        }
+
+        table.form-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+        }
+
+        table.form-table td, table.form-table th {
+            border: 1px solid #cbd5e0;
+            padding: 3px 5px;
+            vertical-align: middle;
+            font-size: 8pt;
+        }
+
+        table.form-table th {
+            background-color: #f0f4f8;
+            color: #2d3748;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #2d3748;
+            white-space: nowrap;
+        }
+
+        .checkbox-group {
+            display: inline-block;
+            margin-right: 6px;
+            white-space: nowrap;
+        }
+
+        .checkbox-box {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border: 1px solid #4a5568;
+            margin-right: 3px;
+            vertical-align: middle;
+            background-color: #fff;
+        }
+
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .font-bold { font-weight: bold; }
+
+        /* Contenedor de diagramas SVG */
+        .diagram-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+            margin-bottom: 8px;
+        }
+
+        .diagram-table td {
+            border: 1px solid #cbd5e0;
+            padding: 6px;
+            text-align: center;
+            vertical-align: top;
+            background-color: #fafbfc;
+        }
+
+        .diagram-title {
+            font-weight: bold;
+            color: #005b82;
+            font-size: 8.5pt;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .svg-container {
+            display: inline-block;
+            margin: 2px auto;
+        }
+
+        .guide-box {
+            background-color: #f7fafc;
+            border: 1px solid #cbd5e0;
+            padding: 5px;
+            font-size: 7.5pt;
+            color: #4a5568;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border-radius: 2px;
+        }
+
+        .signature-table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+            page-break-inside: avoid;
+        }
+
+        .signature-table td {
+            width: 33%;
+            text-align: center;
+            vertical-align: bottom;
+            padding: 0 8px;
+            border: none;
+        }
+
+        .signature-line {
+            border-top: 1px solid #2d3748;
+            margin-top: 30px;
+            padding-top: 3px;
+            font-size: 8pt;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ENCABEZADO INSTITUCIONAL -->
+    <div class="header-container">
+        <table class="header-table">
+            <tr>
+                <td style="width: 60%;">
+                    <div class="logo-title">Centro Visual Morelos</div>
+                    <div class="slogan">"Te hacemos ver las cosas más claras — Descubre que se puede ver mejor"</div>
+                    <div style="font-size: 7.5pt; color: #718096; margin-top: 2px;">
+                        Sitio Web: https://centrovisualmorelos.com | Teléfono de Atención: (777) 123-4567
+                    </div>
+                </td>
+                <td style="width: 40%; text-align: right; vertical-align: top;">
+                    <table class="form-table" style="margin-bottom: 0;">
+                        <tr>
+                            <td class="label" style="background-color: #eef6f9; width: 40%;">FOLIO / ECE:</td>
+                            <td style="font-weight: bold; color: #c53030; text-align: center;">________</td>
+                        </tr>
+                        <tr>
+                            <td class="label" style="background-color: #eef6f9;">FECHA:</td>
+                            <td>____ / ____ / 20__</td>
+                        </tr>
+                        <tr>
+                            <td class="label" style="background-color: #eef6f9;">HORARIO:</td>
+                            <td>Inicio: ____ Fin: ____</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="doc-title">EXPEDIENTE CLÍNICO Y HISTORIA CLÍNICA OPTOMÉTRICA INTEGRAL DE PRIMERA VEZ</div>
+    </div>
+
+    <!-- 1. DATOS DE IDENTIFICACIÓN -->
+    <div class="section-header">1. Datos de Identificación y Ficha Patronímica (Datos Personales)</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 15%;">Nombre del Paciente:</td>
+            <td colspan="5"></td>
+        </tr>
+        <tr>
+            <td class="label" style="width: 15%;">Fecha de Nacimiento:</td>
+            <td style="width: 20%;">DD: ___ MM: ___ AAAA: ______</td>
+            <td class="label" style="width: 10%;">Edad:</td>
+            <td style="width: 12%;">____ años</td>
+            <td class="label" style="width: 10%;">Sexo / Género:</td>
+            <td style="width: 33%;">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Femenino</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Masculino</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Otro</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Estado Civil:</td>
+            <td>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Soltero(a)</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Casado(a)</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Otro</span>
+            </td>
+            <td class="label">Escolaridad:</td>
+            <td></td>
+            <td class="label">Ocupación:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label">Domicilio Completo:</td>
+            <td colspan="3">Calle, No., Col., C.P.</td>
+            <td class="label">Lugar Residencia:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label">Lugar Nacimiento:</td>
+            <td></td>
+            <td class="label">Teléfono / Celular:</td>
+            <td></td>
+            <td class="label">Otro Teléfono:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label">Correo Electrónico:</td>
+            <td colspan="3"></td>
+            <td class="label">Remitido Por:</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label">Persona Responsable:</td>
+            <td colspan="3"></td>
+            <td class="label">Parentesco:</td>
+            <td></td>
+        </tr>
+    </table>
+
+    <!-- 2. ANTECEDENTES PERINATALES -->
+    <div class="section-header">2. Antecedentes Perinatales y Gineco-Obstétricos (Pediátrico / Femenino)</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 20%;">¿Está embarazada actualmente?</td>
+            <td style="width: 25%;">
+                <span class="checkbox-group"><span class="checkbox-box"></span>No</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Sí (Semanas: _____)</span>
+            </td>
+            <td class="label" style="width: 20%;">Historial Obstétrico:</td>
+            <td style="width: 35%;">
+                Gestas: ___ | Partos: ___ | Cesáreas: ___ | Abortos: ___
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Producto de Embarazo No.:</td>
+            <td>___ (Curso: <span class="checkbox-box"></span>Normal <span class="checkbox-box"></span>Complicado)</td>
+            <td class="label">Semanas Gestación al Nacer:</td>
+            <td>_____ Semanas | Sitio Nacimiento: ____________________</td>
+        </tr>
+        <tr>
+            <td class="label">Vía de Nacimiento:</td>
+            <td>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Parto Vaginal</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Cesárea</span>
+            </td>
+            <td class="label">Somatometría Neonatal:</td>
+            <td>Peso: ________ kg | Talla: ________ cm | APGAR: ________</td>
+        </tr>
+        <tr>
+            <td class="label">Anestesia Utilizada:</td>
+            <td></td>
+            <td class="label">Complicaciones Neonatales:</td>
+            <td>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Apnea</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Convulsiones</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Ictericia</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Hemorragia</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Ninguna</span>
+            </td>
+        </tr>
+    </table>
+
+    <!-- 3. ERGONOMÍA DIGITAL MODERNA -->
+    <div class="section-header">3. Hábitos, Estilo de Vida y Ergonomía Digital Tecnológica Actual</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 15%;">Alimentación:</td>
+            <td style="width: 25%;">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Buena</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Regular</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Deficiente</span>
+            </td>
+            <td class="label" style="width: 18%;">Práctica de Deporte:</td>
+            <td style="width: 42%;">
+                <span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (Especifique: _________________________)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Tiene Mascotas:</td>
+            <td>
+                <span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (¿Cuáles?: ____________________)
+            </td>
+            <td class="label">Tabaquismo / Cigarro:</td>
+            <td>
+                <span class="checkbox-group"><span class="checkbox-box"></span>No</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Sí (Cigarrillos/día: ____ Años consumo: ____)</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Exfumador</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Consumo de Alcohol:</td>
+            <td>
+                <span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (Tipo: ________ Frecuencia: ________)
+            </td>
+            <td class="label">Adicciones / Sustancias:</td>
+            <td>
+                <span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (Especifique: _________________________)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Exposición Pantallas (Horas/Día):</td>
+            <td colspan="3">
+                <span class="checkbox-group"><span class="checkbox-box"></span>&le; 1 hr</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>2 a 4 hrs</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>5 a 8 hrs</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>9 a 12 hrs</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>&gt; 12 hrs (Trabajo intensivo)</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Dispositivos Principales:</td>
+            <td colspan="3">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Smartphone / Celular</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Laptop / Escritorio</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Tablet</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Múltiples Monitores</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Lentes RV/RA</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Condiciones Ergonomía:</td>
+            <td colspan="3">
+                Distancia Pantalla: ____ cm | Filtro Azul Activado: <span class="checkbox-box"></span>Sí <span class="checkbox-box"></span>No | Pausas 20-20-20: <span class="checkbox-box"></span>Sí <span class="checkbox-box"></span>No | Iluminación: <span class="checkbox-box"></span>Adecuada <span class="checkbox-box"></span>Deslumbramiento
+            </td>
+        </tr>
+    </table>
+
+    <!-- 4. ANTECEDENTES HEREDOFAMILIARES -->
+    <div class="section-header">4. Antecedentes Heredofamiliares (Generales y Oculares)</div>
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 50%;">Patologías Generales / Sistémicas en la Familia</th>
+                <th style="width: 50%;">Patologías y Condición Ocular en la Familia</th>
+            </tr>
+        </thead>
+        <tr>
+            <td style="vertical-align: top;">
+                <div style="display: flex; flex-wrap: wrap;">
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Diabetes Mellitus</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Hipertensión Arterial</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Cáncer</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Cardiovasculares</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Parkinson / Alzheimer</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Pulmonares</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Artritis / Lupus</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Epilepsia / Neuropatía</span>
+                </div>
+                <div style="margin-top: 3px;"><strong>Otros Antecedentes Familares:</strong> ___________________________________</div>
+            </td>
+            <td style="vertical-align: top;">
+                <div style="display: flex; flex-wrap: wrap;">
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Miopía / Astig. Alto</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Estrabismo</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Glaucoma</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Catarata Temprana</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Degeneración Macular</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Desprendimiento Retina</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Ambliopía / Queratocono</span>
+                    <span class="checkbox-group" style="width: 48%;"><span class="checkbox-box"></span>Ceguera No Explicada</span>
+                </div>
+                <div style="margin-top: 3px;"><strong>Familiar usa lentes:</strong> Quién: _________________ Tipo: _________________</div>
+                <div><strong>Familiar Enf. Ocular:</strong> Quién: ___________ Cuál: _____________</div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- 5. ANTECEDENTES PERSONALES PATOLÓGICOS -->
+    <div class="section-header">5. Antecedentes Personales Patológicos y Generales del Paciente</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 18%;">Enfermedades Sistémicas:</td>
+            <td colspan="3">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Diabetes Mellitus</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Hipertensión Arterial</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Alteraciones Tiroideas</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Artritis / Lupus</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Migraña</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Epilepsia</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Especificación / Fármacos:</td>
+            <td colspan="3">Indicar tiempo de evolución y tratamiento médico consumido actualmente: ____________________________________________________________________________________________________</td>
+        </tr>
+        <tr>
+            <td class="label">Cirugías Previas:</td>
+            <td style="width: 32%;"><span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (Detalle: _______________________)</td>
+            <td class="label" style="width: 18%;">Hospitalizaciones:</td>
+            <td style="width: 32%;"><span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (Detalle: _______________________)</td>
+        </tr>
+        <tr>
+            <td class="label">Traumatismos / Golpes:</td>
+            <td><span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (Detalle: _______________________)</td>
+            <td class="label">Pérdida Conocimiento:</td>
+            <td><span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (Detalle: _______________________)</td>
+        </tr>
+        <tr>
+            <td class="label">Alergias Medicamentosas:</td>
+            <td><span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (Especifique: ___________________)</td>
+            <td class="label">Transfusiones Sangre:</td>
+            <td><span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (Fecha/Detalle: __________________)</td>
+        </tr>
+    </table>
+
+    <!-- 6. ANTECEDENTES OCULARES PERSONALES -->
+    <div class="section-header">6. Antecedentes Oculares Personales, Cirugías y Procedimientos</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 22%;">Edad de Primera Refracción:</td>
+            <td style="width: 28%;">____ años</td>
+            <td class="label" style="width: 22%;">Última Revisión Ocular:</td>
+            <td style="width: 28%;">____ / ________ / 20__</td>
+        </tr>
+        <tr>
+            <td class="label">Ha usado Lentes Contacto:</td>
+            <td><span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (Tipo/Tiempo: _________________)</td>
+            <td class="label">Queratitis por Lentes Contacto:</td>
+            <td><span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (Especifique: ___________________)</td>
+        </tr>
+        <tr>
+            <td class="label">Cirugía Refractiva Previa:</td>
+            <td colspan="3">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Ninguna</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>LASIK</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>PRK / LASEK</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Lente ICL Fáquico</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Anillos Intraestromales</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Crosslinking</span><br>
+                Fecha Procedimiento: ________ / 20__ | Ojo: <span class="checkbox-box"></span>OD <span class="checkbox-box"></span>OI <span class="checkbox-box"></span>Ambos | Complicaciones: ____________________________________
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="label" style="background-color: #f0f4f8; text-align: center;">Historial de Enfermedades y Procedimientos Oculares Previos</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <div style="display: flex; flex-wrap: wrap;">
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Enfermedad Superficie Ocular</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Blefaritis</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Ojo Seco Grave</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Irregularidad Corneal</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Queratocono</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Queratitis (HVS/HZO)</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Cirugía Ocular Previa</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Tratamientos Láser</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Uso de Corticoides</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Glaucoma</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Estrabismo</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Ambliopía (Ojo Flojo)</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Catarata</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Desprendimiento Retina</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Degeneración Macular</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Retinopatía Diabética</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Uveítis / Diplopía</span>
+                    <span class="checkbox-group" style="width: 33%;"><span class="checkbox-box"></span>Trauma Ocular</span>
+                </div>
+                <div style="margin-top: 3px;"><strong>Detalle Ocular Previo:</strong> ____________________________________________________________________________________________________</div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- 7. PADECIMIENTO ACTUAL -->
+    <div class="section-header">7. Padecimientos Actuales, Motivo de Consulta y Evaluación Funcional</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 18%;">Motivo de Consulta (Anamnesis):</td>
+            <td colspan="3">
+                1. Principio: ______________________________________________________________________________________________________<br>
+                2. Evolución: ______________________________________________________________________________________________________<br>
+                3. Estado Actual: ____________________________________________________________________________________________________
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Problema Ocular Específico:</td>
+            <td colspan="3"><span class="checkbox-box"></span>No <span class="checkbox-box"></span>Sí (¿Cuál?: ________________________________________________________________________)</td>
+        </tr>
+        <tr>
+            <td class="label">Signos y Síntomas Presentes:</td>
+            <td colspan="3">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Infección</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Secreción</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Dolor Ocular</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Ardor / Prurito</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Fotofobia</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Visión Borrosa Lejana</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Visión Borrosa Cercana</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Ojo Rojo</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Lagrimeo</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Sensación Cuerpo Extraño</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Astenopia Digital</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Variación de la Visión:</td>
+            <td>
+                Hace cuánto: _________________<br>
+                Tipo: <span class="checkbox-group"><span class="checkbox-box"></span>Súbita</span> <span class="checkbox-group"><span class="checkbox-box"></span>Progresiva</span>
+            </td>
+            <td class="label">Uso Actual de Anteojos:</td>
+            <td>
+                Tipo: <span class="checkbox-box"></span>Monofocal <span class="checkbox-box"></span>Bifocal <span class="checkbox-box"></span>Progresivo <span class="checkbox-box"></span>Lentes Contacto<br>
+                Tiempo Uso: ____________ | Frecuencia: <span class="checkbox-box"></span>Frecuente <span class="checkbox-box"></span>Ocasional <span class="checkbox-box"></span>Nulo
+            </td>
+        </tr>
+    </table>
+
+    <div class="sub-header">Cuestionario de Desempeño Visual y Capacidades en la Vida Diaria</div>
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 33%;">Desempeño en Visión Lejana</th>
+                <th style="width: 33%;">Desempeño en Visión Intermedia / Cercana</th>
+                <th style="width: 34%;">Iluminación, Color y Autonomía</th>
+            </tr>
+        </thead>
+        <tr>
+            <td style="vertical-align: top;">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Dificultad para desplazarse</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Se desplaza solo en la calle</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Se desplaza en lugares desconocidos</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Reconoce rostros de personas</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Ve señales de tráfico al conducir</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Ve letreros de calles / rutas</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Conduce automóvil regularmente</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Camina sin caerse o tropezar</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Dificultad ver objetos lejanos</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Ve televisión con claridad</span>
+            </td>
+            <td style="vertical-align: top;">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Distorsión al leer textos / pantallas</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Fatiga o astenopia en dispositivos</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Lee / trabaja en pantallas &gt; 2 hrs</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Dificultad multipantalla/oficina</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Dificultad enhebrar aguja / detalles</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Requiere mayor iluminación lectura</span>
+            </td>
+            <td style="vertical-align: top;">
+                <strong>Iluminación y Deslumbramiento:</strong><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Deslumbramiento pantallas / luces noche</span><br>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Usa lentes de sol (Efectivas: <span class="checkbox-box"></span>Sí <span class="checkbox-box"></span>No)</span><br>
+                Ve mejor en: <span class="checkbox-box"></span>Interiores <span class="checkbox-box"></span>Exteriores <span class="checkbox-box"></span>Luz solar <span class="checkbox-box"></span>Luz artificial <span class="checkbox-box"></span>Día nublado<br><br>
+                <strong>Autonomía y Distinción Colores:</strong><br>
+                Independencia: <span class="checkbox-box"></span>Buena <span class="checkbox-box"></span>Regular <span class="checkbox-box"></span>Mala<br>
+                Orientación Espacial: <span class="checkbox-box"></span>Buena <span class="checkbox-box"></span>Regular <span class="checkbox-box"></span>Mala<br>
+                Distingue Colores: <span class="checkbox-box"></span>Sí <span class="checkbox-box"></span>No (¿Cuáles?: ________)
+            </td>
+        </tr>
+    </table>
+
+    <!-- 8. SIGNOS VITALES -->
+    <div class="section-header">8. Exploración Física General y Signos Vitales</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 12%;">Tensión Arterial:</td>
+            <td style="width: 13%;">________ mmHg</td>
+            <td class="label" style="width: 12%;">Frec. Cardíaca:</td>
+            <td style="width: 13%;">________ bpm</td>
+            <td class="label" style="width: 12%;">Frec. Resp.:</td>
+            <td style="width: 13%;">________ rpm</td>
+            <td class="label" style="width: 12%;">Temperatura:</td>
+            <td style="width: 13%;">________ °C</td>
+        </tr>
+        <tr>
+            <td class="label">Sat. Oxígeno:</td>
+            <td>________ %</td>
+            <td class="label">Peso:</td>
+            <td>________ kg</td>
+            <td class="label">Talla:</td>
+            <td>________ m</td>
+            <td class="label">Estado General:</td>
+            <td>__________________</td>
+        </tr>
+    </table>
+
+    <!-- 9. EXPLORACIÓN DE ANEXOS Y DIAGRAMAS SVG DE PÁRPADOS/PESTAÑAS -->
+    <div class="section-header">9. Examen Ocular Externo, Biomicroscopía y Diagramas de Anotación de Anexos / Córnea</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 20%;">Parámetros Oculares Externos:</td>
+            <td style="width: 40%;">Diámetro Corneal (H/V): OD ________ mm | OI ________ mm</td>
+            <td style="width: 40%;">Diámetro Pupilar (Fot/Esc): OD ________ mm | OI ________ mm</td>
+        </tr>
+        <tr>
+            <td class="label">Tensión y Parpadeo:</td>
+            <td>Tensión Palpebral: OD ____________ | OI ____________</td>
+            <td>Frecuencia y Amplitud de Parpadeo: _______________________</td>
+        </tr>
+    </table>
+
+    <div class="sub-header">Esquemas Anatómicos de Párpados, Pestañas y Segmento Anterior (Anexos Oculares)</div>
+    <div class="guide-box">
+        <strong>Código Internacional de Colores para Marcado en Diagramas:</strong><br>
+        • <span style="color: red; font-weight: bold;">Rojo:</span> Neovascularización, hiperemia conjuntival/limbal, hemorragias, pingüécula inflamed.<br>
+        • <span style="color: blue; font-weight: bold;">Azul:</span> Edema corneal, infiltrados, teñido con fluoresceína (úlceras, abrasiones, queratitis punctata).<br>
+        • <span style="color: green; font-weight: bold;">Verde:</span> Opacidades de cristalino/córnea, pterigión, nevus, cicatrices.<br>
+        • <span style="color: black; font-weight: bold;">Negro:</span> Cuerpos extraños, depósitos en lentes de contacto, triquiasis, madarosis, pigmentaciones.
+    </div>
+
+    <!-- TABLA DE DIAGRAMAS SVG PARA PÁRPADOS, PESTAÑAS Y CÓRNEA -->
+    <table class="diagram-table">
+        <tr>
+            <td style="width: 50%;">
+                <div class="diagram-title">Ojo Derecho (OD) — Párpados, Pestañas y Segmento Anterior</div>
+                <div class="svg-container">
+                    <svg width="220" height="150" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Esclera y Córnea -->
+                        <ellipse cx="110" cy="75" rx="85" ry="50" fill="#ffffff" stroke="#2d3748" stroke-width="1.5"/>
+                        <circle cx="110" cy="75" r="38" fill="none" stroke="#005b82" stroke-width="1.5" stroke-dasharray="3,3"/>
+                        <circle cx="110" cy="75" r="24" fill="none" stroke="#2c7a7b" stroke-width="1.2"/>
+                        <circle cx="110" cy="75" r="10" fill="#2d3748"/>
+                        
+                        <!-- Párpado Superior -->
+                        <path d="M 25 75 Q 110 15 195 75" fill="none" stroke="#1a202c" stroke-width="2"/>
+                        <!-- Párpado Inferior -->
+                        <path d="M 25 75 Q 110 130 195 75" fill="none" stroke="#1a202c" stroke-width="1.5"/>
+                        
+                        <!-- Pestañas Superiores -->
+                        <path d="M 35 62 Q 30 45 25 40 M 55 46 Q 50 28 45 22 M 80 34 Q 78 15 75 10 M 110 28 Q 110 8 110 3 M 140 34 Q 142 15 145 10 M 165 46 Q 170 28 175 22 M 185 62 Q 190 45 195 40" stroke="#1a202c" stroke-width="1.2" fill="none"/>
+                        <!-- Pestañas Inferiores -->
+                        <path d="M 45 92 Q 40 105 35 110 M 80 108 Q 78 122 75 127 M 110 113 Q 110 128 110 133 M 140 108 Q 142 122 145 127 M 175 92 Q 180 105 185 110" stroke="#1a202c" stroke-width="1" fill="none"/>
+                        
+                        <!-- Punto Lagrimal y Canto Interno (Nasal a la izquierda para OD) -->
+                        <circle cx="32" cy="75" r="2.5" fill="#c53030"/>
+                        <text x="12" y="78" font-size="8" font-family="Arial" fill="#4a5568" font-weight="bold">NASAL</text>
+                        <text x="175" y="78" font-size="8" font-family="Arial" fill="#4a5568" font-weight="bold">TEMP</text>
+                        
+                        <!-- Marcas de horas -->
+                        <text x="106" y="24" font-size="7" fill="#718096">12h</text>
+                        <text x="107" y="125" font-size="7" fill="#718096">6h</text>
+                        <text x="62" y="77" font-size="7" fill="#718096">9h</text>
+                        <text x="150" y="77" font-size="7" fill="#718096">3h</text>
+                    </svg>
+                </div>
+                <div style="font-size: 7.5pt; text-align: left; margin-top: 3px;">
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Córnea Limpia</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Blefaritis</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Meibomitis</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Triquiasis</span><br>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Pterigión Grado: ___</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Teñido Fluoresceína Grado: ___</span>
+                </div>
+            </td>
+            <td style="width: 50%;">
+                <div class="diagram-title">Ojo Izquierdo (OI) — Párpados, Pestañas y Segmento Anterior</div>
+                <div class="svg-container">
+                    <svg width="220" height="150" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Esclera y Córnea -->
+                        <ellipse cx="110" cy="75" rx="85" ry="50" fill="#ffffff" stroke="#2d3748" stroke-width="1.5"/>
+                        <circle cx="110" cy="75" r="38" fill="none" stroke="#005b82" stroke-width="1.5" stroke-dasharray="3,3"/>
+                        <circle cx="110" cy="75" r="24" fill="none" stroke="#2c7a7b" stroke-width="1.2"/>
+                        <circle cx="110" cy="75" r="10" fill="#2d3748"/>
+                        
+                        <!-- Párpado Superior -->
+                        <path d="M 25 75 Q 110 15 195 75" fill="none" stroke="#1a202c" stroke-width="2"/>
+                        <!-- Párpado Inferior -->
+                        <path d="M 25 75 Q 110 130 195 75" fill="none" stroke="#1a202c" stroke-width="1.5"/>
+                        
+                        <!-- Pestañas Superiores -->
+                        <path d="M 35 62 Q 30 45 25 40 M 55 46 Q 50 28 45 22 M 80 34 Q 78 15 75 10 M 110 28 Q 110 8 110 3 M 140 34 Q 142 15 145 10 M 165 46 Q 170 28 175 22 M 185 62 Q 190 45 195 40" stroke="#1a202c" stroke-width="1.2" fill="none"/>
+                        <!-- Pestañas Inferiores -->
+                        <path d="M 45 92 Q 40 105 35 110 M 80 108 Q 78 122 75 127 M 110 113 Q 110 128 110 133 M 140 108 Q 142 122 145 127 M 175 92 Q 180 105 185 110" stroke="#1a202c" stroke-width="1" fill="none"/>
+                        
+                        <!-- Punto Lagrimal y Canto Interno (Nasal a la derecha para OI) -->
+                        <circle cx="188" cy="75" r="2.5" fill="#c53030"/>
+                        <text x="12" y="78" font-size="8" font-family="Arial" fill="#4a5568" font-weight="bold">TEMP</text>
+                        <text x="172" y="78" font-size="8" font-family="Arial" fill="#4a5568" font-weight="bold">NASAL</text>
+                        
+                        <!-- Marcas de horas -->
+                        <text x="106" y="24" font-size="7" fill="#718096">12h</text>
+                        <text x="107" y="125" font-size="7" fill="#718096">6h</text>
+                        <text x="62" y="77" font-size="7" fill="#718096">3h</text>
+                        <text x="150" y="77" font-size="7" fill="#718096">9h</text>
+                    </svg>
+                </div>
+                <div style="font-size: 7.5pt; text-align: left; margin-top: 3px;">
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Córnea Limpia</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Blefaritis</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Meibomitis</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Triquiasis</span><br>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Pterigión Grado: ___</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Teñido Fluoresceína Grado: ___</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 26%;">Estructura Ocular / Segmento Anterior</th>
+                <th style="width: 37%;">Ojo Derecho (OD)</th>
+                <th style="width: 37%;">Ojo Izquierdo (OI)</th>
+            </tr>
+        </thead>
+        <tr>
+            <td class="label">Cejas, Órbita y Párpados</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label">Borde Palpebral y Puntos Lagrimales</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label">Conjuntiva Tarsal y Bulbar</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label">Limbo y Córnea</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label">Cámara Anterior (van Herick) y Iris</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label">Cristalino (Transparencia / Opacidades)</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <div class="sub-header">Análisis de la Lágrima, Evaluación Corneal y Tonometría</div>
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 25%;">Prueba / Evaluación</th>
+                <th style="width: 25%;">Ojo Derecho (OD)</th>
+                <th style="width: 25%;">Ojo Izquierdo (OI)</th>
+                <th style="width: 25%;">Valores de Referencia / Notas</th>
+            </tr>
+        </thead>
+        <tr>
+            <td class="label">Menisco Lagrimal (Altura)</td>
+            <td>________ mm</td>
+            <td>________ mm</td>
+            <td>Normal: 0.2 a 0.5 mm</td>
+        </tr>
+        <tr>
+            <td class="label">Tiempo Rotura Lagrimal (BUT / NIBUT)</td>
+            <td>________ segundos</td>
+            <td>________ segundos</td>
+            <td>Normal: &gt; 10 segundos</td>
+        </tr>
+        <tr>
+            <td class="label">Test de Schirmer (I / II)</td>
+            <td>________ mm / 5 min</td>
+            <td>________ mm / 5 min</td>
+            <td>Normal: &gt; 10 a 15 mm</td>
+        </tr>
+        <tr>
+            <td class="label">Cuestionario McMonnies / OSDI</td>
+            <td colspan="2" class="text-center">Puntaje Total: ________ / 45</td>
+            <td>Puntaje &gt; 14 sugiere Ojo Seco</td>
+        </tr>
+        <tr>
+            <td class="label">Paquimetría / Topografía Corneal</td>
+            <td>Grosor: ____ &mu;m | Patrón: ________</td>
+            <td>Grosor: ____ &mu;m | Patrón: ________</td>
+            <td>Promedio central: ~540 &mu;m</td>
+        </tr>
+        <tr>
+            <td class="label">Tonometría / Tensión Ocular (PIO)</td>
+            <td>________ mmHg</td>
+            <td>________ mmHg</td>
+            <td>Método: _________ (Normal: 10-21 mmHg)</td>
+        </tr>
+    </table>
+
+    <!-- 10. REFLEJOS PUPILARES Y DIAGRAMAS SVG DEL NERVIO ÓPTICO Y RETINA -->
+    <div class="section-header">10. Reflejos Pupilares, Oftalmoscopía y Diagramas del Nervio Óptico / Fondo de Ojo</div>
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 30%;">Reflejo Pupilar</th>
+                <th style="width: 35%;">Ojo Derecho (OD)</th>
+                <th style="width: 35%;">Ojo Izquierdo (OI)</th>
+            </tr>
+        </thead>
+        <tr>
+            <td class="label">Reflejo Fotomotor Directo</td>
+            <td><span class="checkbox-box"></span>Normorreactivo <span class="checkbox-box"></span>Hiporreactivo <span class="checkbox-box"></span>Arreactivo</td>
+            <td><span class="checkbox-box"></span>Normorreactivo <span class="checkbox-box"></span>Hiporreactivo <span class="checkbox-box"></span>Arreactivo</td>
+        </tr>
+        <tr>
+            <td class="label">Reflejo Consensual / Acomodativo</td>
+            <td>Consensual: <span class="checkbox-box"></span>Sí <span class="checkbox-box"></span>No | Acomodativo: <span class="checkbox-box"></span>Sí <span class="checkbox-box"></span>No</td>
+            <td>Consensual: <span class="checkbox-box"></span>Sí <span class="checkbox-box"></span>No | Acomodativo: <span class="checkbox-box"></span>Sí <span class="checkbox-box"></span>No</td>
+        </tr>
+        <tr>
+            <td class="label">Defecto Pupilar Aferente (DPAR)</td>
+            <td colspan="2" class="text-center"><span class="checkbox-box"></span>Ausente &nbsp;&nbsp;&nbsp; <span class="checkbox-box"></span>Presente en OD &nbsp;&nbsp;&nbsp; <span class="checkbox-box"></span>Presente en OI</td>
+        </tr>
+    </table>
+
+    <div class="sub-header">Esquemas Anatómicos del Fondo de Ojo: Nervio Óptico (Papila), Árbol Vascular y Mácula</div>
+    
+    <!-- TABLA DE DIAGRAMAS SVG PARA NERVIO ÓPTICO Y RETINA -->
+    <table class="diagram-table">
+        <tr>
+            <td style="width: 50%;">
+                <div class="diagram-title">Fondo de Ojo y Disco Óptico — Ojo Derecho (OD)</div>
+                <div class="svg-container">
+                    <svg width="220" height="160" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Retina Circulo Exterior -->
+                        <circle cx="110" cy="80" r="72" fill="#fff5f0" stroke="#e53e3e" stroke-width="1.5"/>
+                        <!-- Ejes de cuadrantes -->
+                        <line x1="110" y1="8" x2="110" y2="152" stroke="#cbd5e0" stroke-width="1" stroke-dasharray="2,2"/>
+                        <line x1="38" y1="80" x2="182" y2="80" stroke="#cbd5e0" stroke-width="1" stroke-dasharray="2,2"/>
+                        
+                        <!-- Disco Óptico / Papila (Nasal a la izquierda para OD) -->
+                        <circle cx="75" cy="80" r="16" fill="#feebc8" stroke="#dd6b20" stroke-width="1.5"/>
+                        <!-- Excavación Copa C/D -->
+                        <circle cx="75" cy="80" r="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+                        <text x="71" y="83" font-size="7" font-family="Arial" fill="#dd6b20" font-weight="bold">C/D</text>
+                        
+                        <!-- Árbol Vascular (Arterias/Venas desde papila) -->
+                        <path d="M 75 80 Q 75 40 100 22 M 75 80 Q 60 40 50 25 M 75 80 Q 80 120 105 138 M 75 80 Q 60 120 48 135 M 75 80 Q 40 80 20 80" stroke="#c53030" stroke-width="1.8" fill="none"/>
+                        <path d="M 75 80 Q 82 45 110 25 M 75 80 Q 55 45 42 28 M 75 80 Q 85 115 115 132 M 75 80 Q 55 115 42 132" stroke="#2b6cb0" stroke-width="1.2" fill="none"/>
+                        
+                        <!-- Mácula y Fóvea (Temporal a la derecha para OD) -->
+                        <circle cx="135" cy="80" r="12" fill="#fbd38d" stroke="#d69e2e" stroke-dasharray="2,2"/>
+                        <circle cx="135" cy="80" r="3" fill="#b7791f"/>
+                        <text x="127" y="102" font-size="7" font-family="Arial" fill="#b7791f" font-weight="bold">MÁCULA</text>
+                        
+                        <!-- Etiquetas de Cuadrantes -->
+                        <text x="105" y="18" font-size="7" fill="#718096" font-weight="bold">SUP</text>
+                        <text x="106" y="148" font-size="7" fill="#718096" font-weight="bold">INF</text>
+                        <text x="42" y="83" font-size="7" fill="#718096" font-weight="bold">NASAL</text>
+                        <text x="150" y="83" font-size="7" fill="#718096" font-weight="bold">TEMP</text>
+                    </svg>
+                </div>
+                <div style="font-size: 7.5pt; text-align: left; margin-top: 3px;">
+                    Excavación C/D: 0.____ (Profundidad: ____________)<br>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Mácula Limpia</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Reflejo Foveal Presente</span><br>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Relación A/V 2/3</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Cruces AV Anormales</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Exudados/Hemorragias</span>
+                </div>
+            </td>
+            <td style="width: 50%;">
+                <div class="diagram-title">Fondo de Ojo y Disco Óptico — Ojo Izquierdo (OI)</div>
+                <div class="svg-container">
+                    <svg width="220" height="160" viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Retina Circulo Exterior -->
+                        <circle cx="110" cy="80" r="72" fill="#fff5f0" stroke="#e53e3e" stroke-width="1.5"/>
+                        <!-- Ejes de cuadrantes -->
+                        <line x1="110" y1="8" x2="110" y2="152" stroke="#cbd5e0" stroke-width="1" stroke-dasharray="2,2"/>
+                        <line x1="38" y1="80" x2="182" y2="80" stroke="#cbd5e0" stroke-width="1" stroke-dasharray="2,2"/>
+                        
+                        <!-- Disco Óptico / Papila (Nasal a la derecha para OI) -->
+                        <circle cx="145" cy="80" r="16" fill="#feebc8" stroke="#dd6b20" stroke-width="1.5"/>
+                        <!-- Excavación Copa C/D -->
+                        <circle cx="145" cy="80" r="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+                        <text x="141" y="83" font-size="7" font-family="Arial" fill="#dd6b20" font-weight="bold">C/D</text>
+                        
+                        <!-- Árbol Vascular (Arterias/Venas desde papila) -->
+                        <path d="M 145 80 Q 145 40 120 22 M 145 80 Q 160 40 170 25 M 145 80 Q 140 120 115 138 M 145 80 Q 160 120 172 135 M 145 80 Q 180 80 200 80" stroke="#c53030" stroke-width="1.8" fill="none"/>
+                        <path d="M 145 80 Q 138 45 110 25 M 145 80 Q 165 45 178 28 M 145 80 Q 135 115 105 132 M 145 80 Q 165 115 178 132" stroke="#2b6cb0" stroke-width="1.2" fill="none"/>
+                        
+                        <!-- Mácula y Fóvea (Temporal a la izquierda para OI) -->
+                        <circle cx="85" cy="80" r="12" fill="#fbd38d" stroke="#d69e2e" stroke-dasharray="2,2"/>
+                        <circle cx="85" cy="80" r="3" fill="#b7791f"/>
+                        <text x="77" y="102" font-size="7" font-family="Arial" fill="#b7791f" font-weight="bold">MÁCULA</text>
+                        
+                        <!-- Etiquetas de Cuadrantes -->
+                        <text x="105" y="18" font-size="7" fill="#718096" font-weight="bold">SUP</text>
+                        <text x="106" y="148" font-size="7" fill="#718096" font-weight="bold">INF</text>
+                        <text x="42" y="83" font-size="7" fill="#718096" font-weight="bold">TEMP</text>
+                        <text x="150" y="83" font-size="7" fill="#718096" font-weight="bold">NASAL</text>
+                    </svg>
+                </div>
+                <div style="font-size: 7.5pt; text-align: left; margin-top: 3px;">
+                    Excavación C/D: 0.____ (Profundidad: ____________)<br>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Mácula Limpia</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Reflejo Foveal Presente</span><br>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Relación A/V 2/3</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Cruces AV Anormales</span>
+                    <span class="checkbox-group"><span class="checkbox-box"></span>Exudados/Hemorragias</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- 11. AGUDEZA VISUAL Y LENSOMETRÍA -->
+    <div class="section-header">11. Toma de Agudeza Visual y Lensometría (Gradación Anterior)</div>
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th rowspan="2" style="width: 15%;">Condición de Evaluación</th>
+                <th colspan="3" style="width: 42.5%;">Visión Lejana (VL)</th>
+                <th colspan="3" style="width: 42.5%;">Visión Próxima / Cercana (VP)</th>
+            </tr>
+            <tr>
+                <th style="width: 14%;">Ojo Derecho (OD)</th>
+                <th style="width: 14%;">Ojo Izquierdo (OI)</th>
+                <th style="width: 14.5%;">Ambos Ojos (AO)</th>
+                <th style="width: 14%;">Ojo Derecho (OD)</th>
+                <th style="width: 14%;">Ojo Izquierdo (OI)</th>
+                <th style="width: 14.5%;">Ambos Ojos (AO)</th>
+            </tr>
+        </thead>
+        <tr>
+            <td class="label">Sin Corrección (SC)</td>
+            <td>20 / _____</td>
+            <td>20 / _____</td>
+            <td>20 / _____</td>
+            <td>20/____ | M: ____</td>
+            <td>20/____ | M: ____</td>
+            <td>20/____ | M: ____</td>
+        </tr>
+        <tr>
+            <td class="label">Agujero Estenopeico (PH)</td>
+            <td>20 / _____</td>
+            <td>20 / _____</td>
+            <td>20 / _____</td>
+            <td>20/____ | M: ____</td>
+            <td>20/____ | M: ____</td>
+            <td>20/____ | M: ____</td>
+        </tr>
+        <tr>
+            <td class="label">Corrección Anterior (CA)</td>
+            <td>20 / _____</td>
+            <td>20 / _____</td>
+            <td>20 / _____</td>
+            <td>20/____ | M: ____</td>
+            <td>20/____ | M: ____</td>
+            <td>20/____ | M: ____</td>
+        </tr>
+        <tr>
+            <td class="label">Nueva Corrección (NC)</td>
+            <td>20 / _____</td>
+            <td>20 / _____</td>
+            <td>20 / _____</td>
+            <td>20/____ | M: ____</td>
+            <td>20/____ | M: ____</td>
+            <td>20/____ | M: ____</td>
+        </tr>
+    </table>
+
+    <div class="sub-header">Lensometría (Anteojos Actuales del Paciente)</div>
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 10%;">Ojo</th>
+                <th style="width: 15%;">Esfera (ESF)</th>
+                <th style="width: 15%;">Cilindro (CIL)</th>
+                <th style="width: 12%;">Eje (&deg;)</th>
+                <th style="width: 13%;">Adición (ADD)</th>
+                <th style="width: 15%;">Prisma</th>
+                <th style="width: 10%;">Eje Prisma</th>
+                <th style="width: 10%;">Base</th>
+            </tr>
+        </thead>
+        <tr>
+            <td class="label text-center">OD</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label text-center">OI</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>Distancia Interpupilar (DIP):</strong> _____ mm | <strong>Distancia Nasopupilar (DNP):</strong> OD: _____ mm / OI: _____ mm | <strong>Centro Óptico:</strong> _________ | <strong>Rango/Distancia:</strong> ____________<br>
+                <strong>Tipo de Lente:</strong> <span class="checkbox-box"></span>Monofocal <span class="checkbox-box"></span>Bifocal (Oblea: _______) <span class="checkbox-box"></span>Multifocal / Progresivo <span class="checkbox-box"></span>Lente de Contacto<br>
+                <strong>Material:</strong> CR-39 / Policarbonato / Hi-Index / Otro: ____________ | <strong>Tratamientos:</strong> Antirreflejante / Filtro Azul / Fotocromático
+            </td>
+        </tr>
+    </table>
+
+    <!-- 12. ESTADO REFRACTIVO -->
+    <div class="section-header">12. Estado Refractivo (Queratometría, Retinoscopía y Subjetivo)</div>
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 20%;">Prueba Refractiva</th>
+                <th style="width: 40%;">Ojo Derecho (OD)</th>
+                <th style="width: 40%;">Ojo Izquierdo (OI)</th>
+            </tr>
+        </thead>
+        <tr>
+            <td class="label">Queratometría (K1 / K2)</td>
+            <td>K1: ________ @ ______&deg; / K2: ________ @ ______&deg;</td>
+            <td>K1: ________ @ ______&deg; / K2: ________ @ ______&deg;</td>
+        </tr>
+        <tr>
+            <td class="label">Astigmatismo Corneal / Javal</td>
+            <td>Astig. Corneal: ________ D | Javal: ________ D</td>
+            <td>Astig. Corneal: ________ D | Javal: ________ D</td>
+        </tr>
+        <tr>
+            <td class="label">Refractometría Automática</td>
+            <td>ESF: _______ CIL: _______ EJE: ______&deg;</td>
+            <td>ESF: _______ CIL: _______ EJE: ______&deg;</td>
+        </tr>
+        <tr>
+            <td class="label">
+                Retinoscopía<br>
+                <span style="font-weight: normal; font-size: 7.5pt;">
+                    <span class="checkbox-box"></span>Estática <span class="checkbox-box"></span>Dinámica<br>
+                    <span class="checkbox-box"></span>Ciclopléjica (Fármaco: _______)
+                </span>
+            </td>
+            <td>
+                Dist. Trabajo: _____ cm | Lente Trabajo: _____ D<br>
+                ESF: __________ CIL: __________ EJE: _________&deg;<br>
+                AV Alcanzada: 20 / ________
+            </td>
+            <td>
+                Dist. Trabajo: _____ cm | Lente Trabajo: _____ D<br>
+                ESF: __________ CIL: __________ EJE: _________&deg;<br>
+                AV Alcanzada: 20 / ________
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                Refracción Subjetiva<br>
+                <span style="font-weight: normal; font-size: 7.5pt;">
+                    <span class="checkbox-box"></span>Cilindro Cruzado Jackson<br>
+                    <span class="checkbox-box"></span>Reloj Astigmático<br>
+                    <span class="checkbox-box"></span>Prueba Bicromática
+                </span>
+            </td>
+            <td>
+                ESF: __________ CIL: __________ EJE: _________&deg;<br>
+                Adición (ADD): +__________ D<br>
+                AV Lejana: 20 / ________ | AV Cercana: ________
+            </td>
+            <td>
+                ESF: __________ CIL: __________ EJE: _________&deg;<br>
+                Adición (ADD): +__________ D<br>
+                AV Lejana: 20 / ________ | AV Cercana: ________
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Balance Binocular & Ambulatoria</td>
+            <td colspan="2">
+                Prueba de Balance Binocular: <span class="checkbox-box"></span>Aceptado <span class="checkbox-box"></span>Ajustado | Prueba Ambulatoria: <span class="checkbox-box"></span>Confortable <span class="checkbox-box"></span>Mareo/Distorsión (Notas: ________________)
+            </td>
+        </tr>
+    </table>
+
+    <!-- 13. PRESCRIPCIÓN ÓPTICA DEFINITIVA -->
+    <div class="section-header">13. Prescripción Óptica Definitiva (Fórmula / Receta Final)</div>
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 10%;">Ojo</th>
+                <th style="width: 14%;">Esfera (ESF)</th>
+                <th style="width: 14%;">Cilindro (CIL)</th>
+                <th style="width: 10%;">Eje (&deg;)</th>
+                <th style="width: 12%;">Adición (ADD)</th>
+                <th style="width: 10%;">DNP (mm)</th>
+                <th style="width: 10%;">Altura (mm)</th>
+                <th style="width: 10%;">Prisma</th>
+                <th style="width: 10%;">Base</th>
+            </tr>
+        </thead>
+        <tr>
+            <td class="label text-center">OD</td>
+            <td style="font-weight: bold; text-align: center;"></td>
+            <td style="font-weight: bold; text-align: center;"></td>
+            <td style="font-weight: bold; text-align: center;"></td>
+            <td style="font-weight: bold; text-align: center;"></td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"></td>
+        </tr>
+        <tr>
+            <td class="label text-center">OI</td>
+            <td style="font-weight: bold; text-align: center;"></td>
+            <td style="font-weight: bold; text-align: center;"></td>
+            <td style="font-weight: bold; text-align: center;"></td>
+            <td style="font-weight: bold; text-align: center;"></td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"></td>
+        </tr>
+        <tr>
+            <td colspan="9">
+                <strong>Distancia Interpupilar (DIP):</strong> Lejos: _____ mm / Cerca: _____ mm | <strong>Agudeza Visual Final Alcanzada:</strong> OD: 20 / _____ | OI: 20 / _____ | AO: 20 / _____<br>
+                <strong>Diseño Prescrito:</strong> <span class="checkbox-box"></span>Monofocal <span class="checkbox-box"></span>Bifocal <span class="checkbox-box"></span>Progresivo <span class="checkbox-box"></span>Ocupacional / Oficina <span class="checkbox-box"></span>Lente de Contacto<br>
+                <strong>Material Mica:</strong> <span class="checkbox-box"></span>CR-39 <span class="checkbox-box"></span>Policarbonato <span class="checkbox-box"></span>Hi-Index 1.67/1.74 <span class="checkbox-box"></span>Trivex <span class="checkbox-box"></span>Cristal<br>
+                <strong>Tratamientos Especiales:</strong> <span class="checkbox-box"></span>Antirreflejante AR Premium <span class="checkbox-box"></span>Filtro Luz Azul (Blue Shield) <span class="checkbox-box"></span>Fotocromático <span class="checkbox-box"></span>Polarizado<br>
+                <strong>Tipo Uso Recomendado:</strong> <span class="checkbox-box"></span>Uso Continuo <span class="checkbox-box"></span>Visión Lejana <span class="checkbox-box"></span>Lectura / Cerca <span class="checkbox-box"></span>Computadora / Trabajo Digital<br>
+                <strong>Armazón Sugerido:</strong> ____________________________________________________________________________________________________
+            </td>
+        </tr>
+    </table>
+
+    <!-- 14. EXPLORACIÓN MOTORA -->
+    <div class="section-header">14. Exploración Motora, Motilidad y Visión Binocular</div>
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 25%;">Prueba de Alineación Ocular</th>
+                <th style="width: 37.5%;">Visión Lejana (VL)</th>
+                <th style="width: 37.5%;">Visión Próxima / Cercana (VP)</th>
+            </tr>
+        </thead>
+        <tr>
+            <td class="label">Cover Test / Uncover Test</td>
+            <td><span class="checkbox-box"></span>Ortoforia <span class="checkbox-box"></span>Exoforia <span class="checkbox-box"></span>Endoforia ____ &Delta;</td>
+            <td><span class="checkbox-box"></span>Ortoforia <span class="checkbox-box"></span>Exoforia <span class="checkbox-box"></span>Endoforia ____ &Delta;</td>
+        </tr>
+        <tr>
+            <td class="label">Cover Test Alternante / Prismas</td>
+            <td>Magnitud: ________ &Delta; Base: _________</td>
+            <td>Magnitud: ________ &Delta; Base: _________</td>
+        </tr>
+        <tr>
+            <td class="label">Varilla de Maddox</td>
+            <td>Horizontal: ________ &Delta; Vertical: ________ &Delta;</td>
+            <td>Horizontal: ________ &Delta; Vertical: ________ &Delta;</td>
+        </tr>
+        <tr>
+            <td class="label">Test de Thorington</td>
+            <td>Horizontal: ________ &Delta; Vertical: ________ &Delta;</td>
+            <td>Horizontal: ________ &Delta; Vertical: ________ &Delta;</td>
+        </tr>
+        <tr>
+            <td class="label">Método Von Graefe (Forias)</td>
+            <td>Horiz: ______ &Delta; Vert: ______ &Delta;</td>
+            <td>Horiz: ______ &Delta; Vert: ______ &Delta;</td>
+        </tr>
+        <tr>
+            <td class="label">Dominancia Ocular</td>
+            <td colspan="2" class="text-center">Dominancia Motora/Sensorial: <span class="checkbox-box"></span>Ojo Derecho (OD) &nbsp;&nbsp;&nbsp; <span class="checkbox-box"></span>Ojo Izquierdo (OI)</td>
+        </tr>
+    </table>
+
+    <div class="sub-header">Habilidades Oculomotoras, Punto Próximo de Convergencia y Vergencias Fusionales</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 20%;">Motilidad Ocular / Ducciones:</td>
+            <td style="width: 30%;">OD: Suave / Completa <span class="checkbox-box"></span>Restricción: _____</td>
+            <td style="width: 30%;">OI: Suave / Completa <span class="checkbox-box"></span>Restricción: _____</td>
+            <td style="width: 20%;">Versiones: Normal / Alterada</td>
+        </tr>
+        <tr>
+            <td class="label">Habilidades Oculomotoras:</td>
+            <td colspan="3">
+                Fijación: Normal / Inestable | Sacádicos: Normal / Imprecisos | Seguimiento: Suave / Saccádico<br>
+                Pruebas Aplicadas: <span class="checkbox-box"></span>NSUCO <span class="checkbox-box"></span>SCCO <span class="checkbox-box"></span>DEM (Puntaje: _____) <span class="checkbox-box"></span>King-Devick Test (Tiempo: _____ s)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Punto Próximo Convergencia (PPC):</td>
+            <td colspan="3">
+                Punto de Rotura: ________ cm | Punto de Recobro: ________ cm (Normal: 6 a 10 cm)
+            </td>
+        </tr>
+    </table>
+
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 28%;">Vergencias Fusionales (Reservas)</th>
+                <th style="width: 36%;">Visión Lejana (VL) [Borrosidad / Rotura / Recobro]</th>
+                <th style="width: 36%;">Visión Próxima (VP) [Borrosidad / Rotura / Recobro]</th>
+            </tr>
+        </thead>
+        <tr>
+            <td class="label">Base Temporal BT (Convergencia)</td>
+            <td>______ / ______ / ______ &Delta; (Norma: 9/19/10)</td>
+            <td>______ / ______ / ______ &Delta; (Norma: 17/21/11)</td>
+        </tr>
+        <tr>
+            <td class="label">Base Nasal BN (Divergencia)</td>
+            <td>______ / ______ / ______ &Delta; (Norma: -/7/4)</td>
+            <td>______ / ______ / ______ &Delta; (Norma: 11/24/13)</td>
+        </tr>
+        <tr>
+            <td class="label">Vergencias Verticales</td>
+            <td>Supravergencia: ____ &Delta; Infravergencia: ____ &Delta;</td>
+            <td>Supravergencia: ____ &Delta; Infravergencia: ____ &Delta;</td>
+        </tr>
+    </table>
+
+    <!-- 15. ESTUDIO DE LA ACOMODACIÓN -->
+    <div class="section-header">15. Estudio de la Acomodación</div>
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 30%;">Prueba Acomodativa</th>
+                <th style="width: 23%;">Ojo Derecho (OD)</th>
+                <th style="width: 23%;">Ojo Izquierdo (OI)</th>
+                <th style="width: 24%;">Ambos Ojos (AO) / Norma</th>
+            </tr>
+        </thead>
+        <tr>
+            <td class="label">Amplitud Acomodación (Donders)</td>
+            <td>________ Dioptrías (D)</td>
+            <td>________ Dioptrías (D)</td>
+            <td>________ D (Hofstetter: 18 - 0.3*edad)</td>
+        </tr>
+        <tr>
+            <td class="label">Acomodación Relativa Negativa (ARN)</td>
+            <td colspan="2" class="text-center">Prueba Binocular con Lentes / Flipper (+2.00 D)</td>
+            <td>+________ D (Norma: +2.00 &plusmn; 0.25 D)</td>
+        </tr>
+        <tr>
+            <td class="label">Acomodación Relativa Positiva (ARP)</td>
+            <td colspan="2" class="text-center">Prueba Binocular con Lentes / Flipper (-2.00 D)</td>
+            <td>-________ D (Norma: -2.37 &plusmn; 1.00 D)</td>
+        </tr>
+        <tr>
+            <td class="label">Respuesta / Postura Acomodativa</td>
+            <td colspan="3">
+                Método Evaluado: <span class="checkbox-box"></span>MEM (Monocular Estimate Method) <span class="checkbox-box"></span>Nott <span class="checkbox-box"></span>Bell<br>
+                Resultado: +________ D (Lag / Lead Acomodativo. Normal: +0.50 a +0.75 D)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Facilidad / Flexibilidad Acomodativa</td>
+            <td>________ cpm (ciclos/min)</td>
+            <td>________ cpm (ciclos/min)</td>
+            <td>________ cpm con Flipper &plusmn;2.00 D (Norma binocular: 10 cpm)</td>
+        </tr>
+    </table>
+
+    <!-- 16. EVALUACIÓN SENSORIAL -->
+    <div class="section-header">16. Evaluación Sensorial, Sensibilidad al Contraste, Visión del Color y Estereopsis</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 22%;">Correspondencia Retiniana:</td>
+            <td colspan="3">
+                <span class="checkbox-box"></span>Lentes Estriadas Bagolini (Normal / Cruzada) | 
+                <span class="checkbox-box"></span>Test Luces Worth (4 luces: Lejos _____ / Cerca _____) | 
+                <span class="checkbox-box"></span>Post-imágenes | 
+                Fijación: <span class="checkbox-box"></span>Foveal <span class="checkbox-box"></span>Excéntrica
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Estereopsis / Profundidad:</td>
+            <td colspan="3">
+                Prueba Aplicada: <span class="checkbox-box"></span>Titmus Stereo Test <span class="checkbox-box"></span>Test de Lang <span class="checkbox-box"></span>Test de Frisby <span class="checkbox-box"></span>Tres Agujas Cantonnet <span class="checkbox-box"></span>Howard-Dolman<br>
+                Resultado Agudeza Estereoscópica: ___________ segundos de arco (&quot;) (Normal: &le; 40&quot;)
+            </td>
+        </tr>
+        <tr>
+            <td class="label">Test Sensibilidad Contraste:</td>
+            <td style="width: 28%;">OD: _________ | OI: _________</td>
+            <td class="label" style="width: 22%;">Percepción / Visión Color:</td>
+            <td style="width: 28%;">Test Ishihara: ____ / 14 láminas <br><span class="checkbox-box"></span>Normal <span class="checkbox-box"></span>Daltonismo / Discromatopsia</td>
+        </tr>
+    </table>
+
+    <!-- 17. CAMPO VISUAL -->
+    <div class="section-header">17. Campo Visual y Pruebas Complementarias</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 20%;">Rejilla de Amsler (Campo Central):</td>
+            <td style="width: 40%;">OD: <span class="checkbox-box"></span>Normal <span class="checkbox-box"></span>Metamorfopsia <span class="checkbox-box"></span>Escotoma</td>
+            <td style="width: 40%;">OI: <span class="checkbox-box"></span>Normal <span class="checkbox-box"></span>Metamorfopsia <span class="checkbox-box"></span>Escotoma</td>
+        </tr>
+        <tr>
+            <td class="label">Campimetría Perimetral:</td>
+            <td colspan="2">Tipo de Campimetría realizada: ___________________ | Hallazgos: ____________________________________________________</td>
+        </tr>
+        <tr>
+            <td class="label">Análisis y Pruebas Laboratorio:</td>
+            <td colspan="2">Estudios complementarios (OCT, Paquimetría, Glucosa, etc.): _________________________________________________________</td>
+        </tr>
+    </table>
+
+    <!-- 18. DIAGNÓSTICOS INTEGRALES -->
+    <div class="section-header">18. Diagnósticos Integrales (Multiaxial)</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 22%;">Diagnóstico Refractivo:</td>
+            <td>OD: _______________________________________________________________________________________________________<br>
+                OI: _______________________________________________________________________________________________________</td>
+        </tr>
+        <tr>
+            <td class="label">Diagnóstico Motor y Acomodativo:</td>
+            <td>_________________________________________________________________________________________________________________</td>
+        </tr>
+        <tr>
+            <td class="label">Diagnóstico Patológico Ocular:</td>
+            <td>OD: _______________________________________________________________________________________________________<br>
+                OI: _______________________________________________________________________________________________________</td>
+        </tr>
+        <tr>
+            <td class="label">Diagnóstico Sensorial / Sistémico:</td>
+            <td>_________________________________________________________________________________________________________________</td>
+        </tr>
+    </table>
+
+    <!-- 19. PLAN DE TRATAMIENTO Y TERAPIA VISUAL -->
+    <div class="section-header">19. Plan de Tratamiento, Terapia Visual y Manejo Clínico</div>
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 20%;">Plan de Tratamiento General:</td>
+            <td>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Corrección Óptica (Anteojos)</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Lentes de Contacto</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Prismas</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Oclusión / Parche</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Entrenamiento / Terapia Visual</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Tratamiento Médico Fármaco-Optométrico</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Valoración Cirugía / Referencia</span>
+            </td>
+        </tr>
+    </table>
+
+    <div class="sub-header">Propuesta de Entrenamiento / Terapia Visual y Planeación de Sesiones</div>
+    <table class="form-table">
+        <thead>
+            <tr>
+                <th style="width: 25%;">Etapa de Terapia Visual</th>
+                <th style="width: 75%;">Técnicas, Procedimientos y Objetivos por Sesión</th>
+            </tr>
+        </thead>
+        <tr>
+            <td class="label text-center">Etapa 1: Monocular</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label text-center">Etapa 2: Biocular</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="label text-center">Etapa 3: Binocular</td>
+            <td></td>
+        </tr>
+    </table>
+
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 18%;">Pronóstico del Caso:</td>
+            <td style="width: 32%;">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Excelente</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Bueno</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Reservado</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Malo</span>
+            </td>
+            <td class="label" style="width: 18%;">Próxima Cita / Control:</td>
+            <td style="width: 32%;">Fecha: ____ / ____ / 20__ | Motivo: _____________________</td>
+        </tr>
+        <tr>
+            <td class="label">Remisiones / Interconsultas:</td>
+            <td colspan="3">Especialidad a la que se remite: <span class="checkbox-box"></span>Oftalmología <span class="checkbox-box"></span>Neurología <span class="checkbox-box"></span>Medicina Interna / Otra: _____________________</td>
+        </tr>
+        <tr>
+            <td class="label">Observaciones y Recomendaciones:</td>
+            <td colspan="3">__________________________________________________________________________________________________________________________________________<br>__________________________________________________________________________________________________________________________________________</td>
+        </tr>
+    </table>
+
+    <!-- 20. GUÍA Y ESCALAS DE GRADACIÓN CLÍNICA -->
+    <div class="section-header">20. Anotaciones y Escalas de Gradación Clínica (Evaluación de Lentes de Contacto)</div>
+    <div class="guide-box">
+        <strong>Guía de Gradación Clínica (Grados 1 a 4 para detección precoz de alteraciones asociadas a Lentes de Contacto y Córnea):</strong><br>
+        • <strong>Grado 1 (Leve):</strong> Alteración no significativa que no requiere actuación clínica.<br>
+        • <strong>Grado 2 (Medio):</strong> Se recomienda seguimiento más intenso, pero puede no ser necesaria actuación clínica inmediata.<br>
+        • <strong>Grado 3 (Moderado):</strong> Requiere modificación en el uso de LC (cambio de material, tiempo de uso, sistema de mantenimiento o parámetros).<br>
+        • <strong>Grado 4 (Severo):</strong> Se recomienda el cese (temporal o definitivo) del uso de Lentes de Contacto.<br>
+        <br>
+        <strong>Entidades Clínicas a Evaluar y Grado Registrado (1 a 4):</strong><br>
+        1. Hiperemia conjuntiva bulbar [ ___ ] | 2. Hiperemia conjuntiva limbal [ ___ ] | 3. Neovascularización corneal [ ___ ] | 4. Microquistes/vacuolas epiteliales [ ___ ]<br>
+        5. Estrías y pliegues estromales [ ___ ] | 6. Hiperemia conjuntiva tarsal [ ___ ] | 7. Irregularidades conjuntiva tarsal [ ___ ] | 8. Teñido corneal (tipo/extensión/profundidad) [ ___ ] | 9. Teñido conjuntival [ ___ ]
+    </div>
+
+    <!-- 21. AVISO DE PRIVACIDAD, ACEPTACIÓN Y FIRMAS LEGALES -->
+    <div class="section-header">21. Consentimiento Informado, Aviso de Privacidad y Firmas de Conformidad</div>
+    <div style="font-size: 7.5pt; text-align: justify; color: #4a5568; line-height: 1.2; margin-bottom: 10px;">
+        <strong>Autorización y Aviso de Privacidad:</strong> Autorizo a <strong>Centro Visual Morelos</strong> a realizarme la valoración optométrica y visual integral correspondiente. Confirmo que he sido informado(a) adecuadamente sobre el Aviso de Privacidad, la protección de mis datos personales y datos personales sensibles relativos a mi salud visual, y acepto el tratamiento de los mismos de acuerdo con la normativa vigente y lo established en la página web oficial: <u>https://centrovisualmorelos.com/index.php/aviso-de-privacidad/aviso</u>.
+    </div>
+
+    <table class="signature-table">
+        <tr>
+            <td>
+                <div class="signature-line">
+                    Firma de Aceptación del Paciente / Tutor<br>
+                    <span style="font-size: 7.5pt; font-weight: normal; color: #718096;">Nombre: _______________________________</span>
+                </div>
+            </td>
+            <td>
+                <div class="signature-line">
+                    Nombre y Firma del Optometrista Evaluador<br>
+                    <span style="font-size: 7.5pt; font-weight: normal; color: #718096;">Cédula Profesional: ______________________</span>
+                </div>
+            </td>
+            <td>
+                <div class="signature-line">
+                    Nombre y Firma del Profesor / Revisor<br>
+                    <span style="font-size: 7.5pt; font-weight: normal; color: #718096;">Cédula Profesional: ______________________</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+    <!-- ========================================================================================= -->
+    <!-- PARTE 2: HOJA DE EVOLUCIÓN Y SEGUIMIENTO OPTOMÉTRICO (CITAS SUBSECUENTES) -->
+    <!-- ========================================================================================= -->
+
+    <div class="page-break"></div>
+
+    <div class="header-container">
+        <table class="header-table">
+            <tr>
+                <td style="width: 60%;">
+                    <div class="logo-title">Centro Visual Morelos</div>
+                    <div class="slogan">"Te hacemos ver las cosas más claras — Descubre que se puede ver mejor"</div>
+                </td>
+                <td style="width: 40%; text-align: right; vertical-align: top;">
+                    <table class="form-table" style="margin-bottom: 0;">
+                        <tr>
+                            <td class="label" style="background-color: #eef6f9; width: 45%;">FOLIO / EXPEDIENTE:</td>
+                            <td style="font-weight: bold; color: #c53030; text-align: center;">________</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div class="doc-title" style="background-color: #2c7a7b;">HOJA DE EVOLUCIÓN Y SEGUIMIENTO OPTOMÉTRICO (CITAS SUBSECUENTES)</div>
+    </div>
+
+    <div class="guide-box">
+        <strong>Nota Clínica para Consultas Subsecuentes (Norma Oficial Mexicana NOM-004-SSA3-2012 del Expediente Clínico):</strong><br>
+        En las citas subsecuentes (2ª, 3ª o <i>N</i> veces) <strong>NO se vuelve a realizar la Historia Clínica completa</strong>. Se utiliza este formato dinámico estructurado bajo el método <strong>SOAP</strong> (Subjetivo, Objetivo, Análisis, Plan) para registrar únicamente los cambios, la adaptación a la corrección o terapia visual, el control de patologías y los ajustes a la prescripción final.
+    </div>
+
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 15%;">Nombre del Paciente:</td>
+            <td style="width: 50%;"></td>
+            <td class="label" style="width: 12%;">Edad:</td>
+            <td style="width: 23%;">____ años</td>
+        </tr>
+    </table>
+
+    <!-- NOTA DE EVOLUCIÓN 1 -->
+    <div class="section-header" style="background-color: #e2e8f0; color: #2d3748; border-left-color: #2c7a7b;">
+        NOTA DE EVOLUCIÓN Y CONTROL N° _____ | FECHA: ____ / ____ / 20__ | HORA: ____:____
+    </div>
+
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 18%; background-color: #f7fafc;">
+                <strong>S (SUBJETIVO)</strong><br>
+                <span style="font-weight: normal; font-size: 7.5pt;">Motivo / Sintomatología</span>
+            </td>
+            <td colspan="3">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Control Anual / Cita Rutina</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Revisión Anteojos Nuevos</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Evaluación Terapia Visual</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Control Superficie / Ojo Seco</span><br>
+                <strong>Evolución y Comentarios:</strong> ________________________________________________________________________________________________________________________________________________<br>
+                Aceptación de Rx: <span class="checkbox-box"></span>Buena <span class="checkbox-box"></span>Molestia / Mareo <span class="checkbox-box"></span>Visión borrosa | Horas de uso al día: _____ hrs
+            </td>
+        </tr>
+        <tr>
+            <td class="label" style="background-color: #f7fafc;">
+                <strong>O (OBJETIVO)</strong><br>
+                <span style="font-weight: normal; font-size: 7.5pt;">Hallazgos y Pruebas</span>
+            </td>
+            <td colspan="3">
+                <strong>Agudeza Visual Actual (con Rx presente):</strong> OD: 20/_____ OI: 20/_____ AO: 20/_____ | VP: _____<br>
+                <strong>Biomicroscopía / Córnea:</strong> OD: _____________________________________ OI: _____________________________________<br>
+                <strong>PIO (Tonometría):</strong> OD: ________ mmHg | OI: ________ mmHg &nbsp;&nbsp;&nbsp; <strong>BUT / Lágrima:</strong> OD: ____ s | OI: ____ s<br>
+                <strong>Refracción Actualizada (si amerita):</strong> OD: ___________ = ___________ x ______&deg; (20/____) | OI: ___________ = ___________ x ______&deg; (20/____)
+            </td>
+        </tr>
+        <tr>
+            <td class="label" style="background-color: #f7fafc;">
+                <strong>A (ANÁLISIS)</strong><br>
+                <span style="font-weight: normal; font-size: 7.5pt;">Diagnóstico / Estado</span>
+            </td>
+            <td colspan="3">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Caso estable sin cambios</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Cambio refractivo significativo</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Buena adaptación Terapia</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Alteración Córnea/Lágrima</span><br>
+                <strong>Diagnóstico Actualizado:</strong> ________________________________________________________________________________________________________________________________________________
+            </td>
+        </tr>
+        <tr>
+            <td class="label" style="background-color: #f7fafc;">
+                <strong>P (PLAN)</strong><br>
+                <span style="font-weight: normal; font-size: 7.5pt;">Manejo y Cita</span>
+            </td>
+            <td colspan="3">
+                <span class="checkbox-group"><span class="checkbox-box"></span>Continuar misma gradación</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Nueva prescripción de anteojos</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Ajuste Terapia Visual</span>
+                <span class="checkbox-group"><span class="checkbox-box"></span>Tratamiento Lubricante</span><br>
+                <strong>Indicaciones Específicas:</strong> ________________________________________________________________________________________________________________________________________________<br>
+                <strong>Próxima Cita de Control:</strong> En _____ meses (Fecha estimada: ____ / ____ / 20__)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align: right; padding-top: 10px;">
+                <strong>Optometrista Evaluador:</strong> ____________________________________ <strong>Cédula:</strong> __________________
+            </td>
+        </tr>
+    </table>
+
+    <!-- NOTA DE EVOLUCIÓN 2 -->
+    <div class="section-header" style="background-color: #e2e8f0; color: #2d3748; border-left-color: #2c7a7b; margin-top: 15px;">
+        NOTA DE EVOLUCIÓN Y CONTROL N° _____ | FECHA: ____ / ____ / 20__ | HORA: ____:____
+    </div>
+
+    <table class="form-table">
+        <tr>
+            <td class="label" style="width: 18%; background-color: #f7fafc;"><strong>S (SUBJETIVO)</strong></td>
+            <td colspan="3"><strong>Evolución / Síntomas:</strong> ________________________________________________________________________________________________________________________________________________</td>
+        </tr>
+        <tr>
+            <td class="label" style="background-color: #f7fafc;"><strong>O (OBJETIVO)</strong></td>
+            <td colspan="3">
+                <strong>AV:</strong> OD: 20/_____ OI: 20/_____ | <strong>PIO:</strong> OD: ____ mmHg OI: ____ mmHg | <strong>Rx:</strong> OD: __________________ OI: __________________<br>
+                <strong>Hallazgos Clínicos:</strong> ________________________________________________________________________________________________________________________________________________
+            </td>
+        </tr>
+        <tr>
+            <td class="label" style="background-color: #f7fafc;"><strong>A (ANÁLISIS)</strong></td>
+            <td colspan="3"><strong>Juicio Clínico / Diagnóstico:</strong> ________________________________________________________________________________________________________________________________________________</td>
+        </tr>
+        <tr>
+            <td class="label" style="background-color: #f7fafc;"><strong>P (PLAN)</strong></td>
+            <td colspan="3"><strong>Plan / Próxima Cita:</strong> ________________________________________________________________________________________________________________________________________________</td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align: right; padding-top: 10px;">
+                <strong>Optometrista Evaluador:</strong> ____________________________________ <strong>Cédula:</strong> __________________
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
